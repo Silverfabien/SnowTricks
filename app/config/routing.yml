@@ -1,3 +1,4 @@
-app:
-    resource: '@AppBundle/Controller/'
-    type: annotation
+snow_tricks:
+    resource: "@SnowTricksBundle/Controller/"
+    type:     annotation
+    prefix:   /
