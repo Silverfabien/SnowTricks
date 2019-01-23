@@ -2,10 +2,16 @@
 # https://symfony.com/doc/current/security.html
 security:
 
+    encoders:
+        SnowTricksBundle\Entity\User:
+            algorithm: bcrypt
+
     # https://symfony.com/doc/current/security.html#b-configuring-how-users-are-loaded
     providers:
-        in_memory:
-            memory: ~
+        user:
+            entity:
+                class: SnowTricksBundle:User
+                property: username
 
     firewalls:
         # disables authentication for assets and the profiler, adapt it according to your needs
@@ -14,11 +20,14 @@ security:
             security: false
 
         main:
-            anonymous: ~
-            # activate different ways to authenticate
-
-            # https://symfony.com/doc/current/security.html#a-configuring-how-your-users-will-authenticate
-            #http_basic: ~
-
-            # https://symfony.com/doc/current/security/form_login_setup.html
-            #form_login: ~
+            pattern: ^/
+            anonymous: true
+            guard:
+                authenticators:
+                    - user.security.login_form_authenticator
+            logout:
+                path: /logout
+            switch_user: ~
+            remember_me:
+                secret: '%secret%'
+                lifetime: 604800

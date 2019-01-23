@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+
+    <div class="container">
+        <div class="row">
+            <h3>Formulaire d'inscription</h3>
+            <div class="container form-group">
+                {{ form_start(registerForm, {'attr': {'novalidate': 'novalidate'}}) }}
+                {{ form_widget(registerForm) }}
+                <button type="submit" class="btn btn-primary">Envoyer</button>
+                {{ form_end(registerForm) }}
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}

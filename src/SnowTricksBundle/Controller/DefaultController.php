@@ -8,7 +8,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 class DefaultController extends Controller
 {
     /**
-     * @Route("/", name="snowtricks_index")
+     * @Route("/", name="snowtricks_homepage")
      */
     public function indexAction()
     {

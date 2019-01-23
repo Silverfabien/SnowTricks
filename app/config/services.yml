@@ -28,3 +28,14 @@ services:
         resource: '../../src/SnowTricksBundle/Controller'
         public: true
         tags: ['controller.service_arguments']
+
+    user.listener.encode_password_listener:
+        class: SnowTricksBundle\Listener\EncodePasswordListener
+        arguments: ['@security.encoder_factory']
+        tags:
+            - { name: doctrine.event_subscriber }
+
+    user.security.login_form_authenticator:
+        class: SnowTricksBundle\Security\LoginFormAuthenticator
+        arguments: ['@doctrine.orm.entity_manager', '@form.factory', '@security.user_password_encoder.generic', '@router']
+        public: true
