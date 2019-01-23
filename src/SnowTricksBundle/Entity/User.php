@@ -48,10 +48,21 @@ class User implements UserInterface
     /**
      * @var string
      *
-     * @ORM\Column(name="salt", type="string", length=255)
+     * @ORM\Column(name="salt", type="string", length=255, nullable=true)
      */
     private $salt;
 
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="created_at", type="datetime")
+     */
+    private $created;
+
+    public function __construct()
+    {
+        $this->created_at = new \DateTime();
+    }
 
     /**
      * Get id
@@ -167,6 +178,22 @@ class User implements UserInterface
         $this->salt = $salt;
 
         return $this;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getCreated()
+    {
+        return $this->created;
+    }
+
+    /**
+     * @param \DateTime $created
+     */
+    public function setCreatedAt($created)
+    {
+        $this->created = $created;
     }
 
     /**
