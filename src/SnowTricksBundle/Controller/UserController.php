@@ -13,9 +13,14 @@ class UserController extends Controller
 {
     /** Gestion des utilisateurs */
 
+    /**
+     * @Route("/account", name="snowtricks_account")
+     */
     public function accountAction()
     {
+        $this->denyAccessUnlessGranted('ROLE_USER');
 
+        return $this->render('@SnowTricks/user/account.html.twig');
     }
 
     public function createDeleteForm()
@@ -29,11 +34,6 @@ class UserController extends Controller
     }
 
     public function editUserAction()
-    {
-
-    }
-
-    public function newUserAction()
     {
 
     }
