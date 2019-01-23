@@ -37,10 +37,10 @@
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownPortfolio">
                                     {% if app.user %}
                                     <a class="dropdown-item" href="">Mon compte</a>
-                                    <a class="dropdown-item" href="">Déconnexion</a>
+                                    <a class="dropdown-item" href="{{ path('snowtricks_logout') }}">Déconnexion</a>
                                     {% else %}
                                     <a class="dropdown-item" href="{{ path('snowtricks_login') }}">Connexion</a>
-                                    <a class="dropdown-item" href="">Inscription</a>
+                                    <a class="dropdown-item" href="{{ path('snowtricks_register') }}">Inscription</a>
                                     {% endif %}
                                 </div>
                             </li>
