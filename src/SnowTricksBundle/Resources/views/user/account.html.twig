@@ -2,10 +2,38 @@
 {% block body %}
 
     <div class="container">
-        <div class="row">
-
+        <h3>Information utilisateur :</h3>
+        <p><b>Pseudo</b> : <b>{{ app.user.username }}</b></p>
+        <p><b>Email</b> : <b>{{ app.user.email }}</b></p>
+        <p><b>Création du compte</b> : <b>{{ app.user.created|date('d/m/Y à H\\hi') }}</b></p>
+    </div>
+    <div class="container">
+        <p>
+            <button id="btn-modify" class="btn btn-warning" href="#edit" title="Modifier les informations de l'utilisateur">Modifier mon compte</button>
+        </p>
+        <div id="edit">
+            <div class="container">
+                <div class="row">
+                    <h1>Modifier mon profil</h1>
+                    <div class="container form-group">
+                        {{ form_start(editForm) }}
+                        {{ form_widget(editForm) }}
+                        <br><button type="submit" class="btn btn-info">Envoyer</button>
+                        {{ form_end(editForm) }}
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
 
+    <script type="text/javascript">
+        $('#edit').hide();
+        $('#btn-modify').click(function() {
+            $('#edit').toggle();
+        })
+    </script>
 {% endblock %}
