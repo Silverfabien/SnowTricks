@@ -14,7 +14,7 @@ class UserController extends Controller
     /** Gestion des utilisateurs */
 
     /**
-     * @Route("/account", name="snowtricks_account")
+     * @Route("/account/{username}", name="snowtricks_account")
      */
     public function accountAction()
     {
@@ -23,19 +23,22 @@ class UserController extends Controller
         return $this->render('@SnowTricks/user/account.html.twig');
     }
 
-    public function createDeleteForm()
+    /**
+     * @Route("/account/{username}", name="snowtricks_account")
+     */
+    public function editUserAction(Request $request, User $user)
     {
+        $edit = $this->createForm(RegisterType::class, $user);
+        $edit->handleRequest($request);
 
-    }
+        if($edit->isSubmitted() && $edit->isValid())
+        {
+            $this->getDoctrine()->getManager()->flush();
 
-    public function deleteUserAction()
-    {
+            return $this->redirectToRoute("snowtricks_account", ['username' => $user->getUsername()]);
+        }
 
-    }
-
-    public function editUserAction()
-    {
-
+        return $this->render('@SnowTricks/user/account.html.twig', ['user' => $user, 'editForm' => $edit->createView()]);
     }
 
     /** Connexion / Déconnexion / Inscription */
