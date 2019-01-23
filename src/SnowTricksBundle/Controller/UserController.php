@@ -3,8 +3,11 @@
 namespace SnowTricksBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use SnowTricksBundle\Entity\User;
 use SnowTricksBundle\Form\LoginType;
+use SnowTricksBundle\Form\RegisterType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 
 class UserController extends Controller
 {
@@ -42,18 +45,38 @@ class UserController extends Controller
      */
     public function loginAction()
     {
-        $loginForm = $this->createForm(LoginType::class, ['username' => $this->get('security.authentication_utils')->getLastUsername()]);
+        $form = $this->createForm(LoginType::class, ['username' => $this->get('security.authentication_utils')->getLastUsername()]);
 
-        return $this->render('@SnowTricks/user/login.html.twig', ['loginForm' => $loginForm->createView()]);
+        return $this->render('@SnowTricks/user/login.html.twig', ['loginForm' => $form->createView()]);
     }
 
+    /**
+     * @Route("/logout",name="snowtricks_logout")
+     * @throws \Exception
+     */
     public function logoutAction()
     {
-
+        throw new \Exception('This should not be reached');
     }
 
-    public function registerAction()
+    /**
+     * @Route("/register", name="snowtricks_register")
+     */
+    public function registerAction(Request $request)
     {
+        $user = new User();
+        $form = $this->createForm(RegisterType::class, $user);
+        $form->handleRequest($request);
 
+        if($form->isSubmitted() && $form->isValid())
+        {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($user);
+            $em->flush();
+
+            return $this->redirectToRoute('snowtricks_login', ['id' => $user->getId()]);
+        }
+
+        return $this->render('@SnowTricks/user/register.html.twig', ['user' => $user, 'registerForm' => $form->createView()]);
     }
 }
