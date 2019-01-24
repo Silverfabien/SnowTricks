@@ -4,6 +4,7 @@ namespace SnowTricksBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use SnowTricksBundle\Entity\User;
+use SnowTricksBundle\Form\ForgotPasswordType;
 use SnowTricksBundle\Form\LoginType;
 use SnowTricksBundle\Form\RegisterType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -41,6 +42,24 @@ class UserController extends Controller
         return $this->render('@SnowTricks/user/account.html.twig', ['user' => $user, 'editForm' => $edit->createView()]);
     }
 
+    /**
+     * @Route("/forgot", name="snowtricks_forgotpassword")
+     */
+    public function forgotPasswordAction(Request $request, User $user = null)
+    {
+        $forgot = $this->createForm(ForgotPasswordType::class, $user);
+        $forgot->handleRequest($request);
+
+        if($forgot->isSubmitted() && $forgot->isValid())
+        {
+            $this->getDoctrine()->getManager()->flush();
+
+            return $this->redirectToRoute('snowtricks_forgotpassword');
+        }
+
+        return $this->render('@SnowTricks/user/forgotPassword.html.twig', ['user' => $user, 'forgotPasswordForm' => $forgot->createView()]);
+    }
+
     /** Connexion / Déconnexion / Inscription */
 
     /**
@@ -54,7 +73,7 @@ class UserController extends Controller
     }
 
     /**
-     * @Route("/logout",name="snowtricks_logout")
+     * @Route("/logout", name="snowtricks_logout")
      * @throws \Exception
      */
     public function logoutAction()
