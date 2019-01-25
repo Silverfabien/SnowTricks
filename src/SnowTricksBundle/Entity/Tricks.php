@@ -3,6 +3,7 @@
 namespace SnowTricksBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints\DateTime;
 
 /**
  * Tricks
@@ -56,6 +57,10 @@ class Tricks
      */
     private $slug;
 
+    public function __construct()
+    {
+        $this->createdAt = new \DateTime();
+    }
 
     /**
      * Get id
@@ -77,7 +82,7 @@ class Tricks
     public function setName($name)
     {
         $this->name = $name;
-
+        $this->setSlug($this->name);
         return $this;
     }
 
@@ -172,9 +177,7 @@ class Tricks
      */
     public function setSlug($slug)
     {
-        $this->slug = $slug;
-
-        return $this;
+        $this->slug = $this->slugify($slug);
     }
 
     /**
@@ -186,5 +189,25 @@ class Tricks
     {
         return $this->slug;
     }
-}
 
+    public function slugify($name)
+    {
+        $name = preg_replace('#[^\\pL\d]+#u', '-', $name);
+        $name = trim($name, '-');
+
+        if(function_exists('iconv'))
+        {
+            $name = iconv('utf-8', 'us-ascii//TRANSLIT', $name);
+        }
+
+        $name = strtolower($name);
+        $name = preg_replace('#[^-\w]+#', '', $name);
+
+        if(empty($name))
+        {
+            return 'n-a';
+        }
+
+        return $name;
+    }
+}
