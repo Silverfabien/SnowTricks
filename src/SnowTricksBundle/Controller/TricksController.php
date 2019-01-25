@@ -39,6 +39,8 @@ class TricksController extends Controller
      */
     public function addAction(Request $request)
     {
+        $this->denyAccessUnlessGranted('ROLE_USER');
+
         $tricks = new Tricks();
         $form = $this->createForm(TricksType::class, $tricks);
         $form->handleRequest($request);
@@ -60,6 +62,8 @@ class TricksController extends Controller
      */
     public function editAction(Request $request, Tricks $tricks)
     {
+        $this->denyAccessUnlessGranted('ROLE_USER');
+
         $form = $this->createForm(TricksType::class, $tricks);
         $form->handleRequest($request);
 
@@ -78,6 +82,8 @@ class TricksController extends Controller
      */
     public function deleteAction(Request $request, Tricks $tricks)
     {
+        $this->denyAccessUnlessGranted('ROLE_USER');
+
         $form = $this->createDeleteForm($tricks);
         $form->handleRequest($request);
 
