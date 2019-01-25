@@ -1,10 +1,17 @@
 {% extends 'base.html.twig' %}
 {% block body %}
 
+    {% if app.user %}
+    <div class="container" style="text-align: right">
+        Ajouté le {{ trick.createdAt|date('d/m/Y à H\\hi') }}
+        <a href="{{ path('snowtricks_edittricks', {'slug': trick.slug}) }}" class="btn btn-info"><span class="fa fa-pencil"> Éditer</span></a>&nbsp;
+        <a href="{{ path('snowtricks_deletetricks', {'slug': trick.slug}) }}" class="btn btn-danger"><span class="fa fa-trash-o"> Supprimer</span></a>
+    </div>
+    {% endif %}
     <div class="container">
-        <div class="row">
-
-        </div>
+        <h3>{{ trick.name }}</h3>
+        <h4>Description :</h4>
+        <p>{{ trick.description }}</p>
     </div>
 
 {% endblock %}
