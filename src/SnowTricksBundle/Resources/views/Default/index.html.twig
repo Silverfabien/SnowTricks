@@ -44,8 +44,9 @@
     </header>
 
     <div class="container">
-        <a class="btn btn-success" href="{{ path('snowtricks_addtricks') }}"><span class="fa fa-plus"> Ajouter un Tricks</span></a>
-
+        {% if app.user %}
+            <a class="btn btn-success" href="{{ path('snowtricks_addtricks') }}"><span class="fa fa-plus"> Ajouter un Tricks</span></a>
+        {% endif %}
         <h2>Liste des Tricks</h2>
 
         <div class="row">
