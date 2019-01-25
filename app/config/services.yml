@@ -39,3 +39,8 @@ services:
         class: SnowTricksBundle\Security\LoginFormAuthenticator
         arguments: ['@doctrine.orm.entity_manager', '@form.factory', '@security.user_password_encoder.generic', '@router']
         public: true
+
+    twig.extension.text:
+        class: Twig_Extensions_Extension_Text
+        tags:
+            - { name: twig.extension }

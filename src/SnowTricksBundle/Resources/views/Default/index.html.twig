@@ -42,4 +42,32 @@
             </a>
         </div>
     </header>
+
+    <div class="container">
+        {% if app.user %}
+            <a class="btn btn-success" href="{{ path('snowtricks_addtricks') }}"><span class="fa fa-plus"> Ajouter un Tricks</span></a>
+        {% endif %}
+        <h2>Liste des Tricks</h2>
+
+        <div class="row">
+            {% for trick in tricks %}
+            <div class="col-lg-3 col-sm-6 portfolio-item">
+                <div class="card h-100">
+                    <a href="{{ path('snowtricks_viewtricks', {'slug': trick.slug}) }}"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
+                    <div class="card-body">
+                        <h4 class="card-title">
+                            <a href="{{ path('snowtricks_viewtricks', {'slug': trick.slug}) }}">{{ trick.name }}</a>
+                        </h4>
+                        <p class="card-text">{{ trick.description|truncate(100, true, '...') }}</p>
+                    </div>
+                    {% if app.user %}
+                        <a href="{{ path('snowtricks_edittricks', {'slug': trick.slug}) }}" class="btn btn-info"><span class="fa fa-pencil"> Éditer {{ trick.name|truncate(20, false, '...') }}</span></a>
+                        <a href="{{ path('snowtricks_deletetricks', {'slug': trick.slug}) }}" class="btn btn-danger"><span class="fa fa-trash"> Supprimer {{ trick.name|truncate(20, false, '...') }}</span></a>
+                    {% endif %}
+                </div>
+            </div>
+            {% endfor%}
+        </div>
+    </div>
+
 {% endblock %}
