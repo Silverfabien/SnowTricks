@@ -14,6 +14,11 @@ use Symfony\Component\Validator\Constraints\DateTime;
 class Tricks
 {
     /**
+     * @ORM\OneToMany(targetEntity="SnowTricksBundle\Entity\Comment", mappedBy="trick", cascade={"persist", "remove"})
+     */
+    private $comment;
+
+    /**
      * @var int
      *
      * @ORM\Column(name="id", type="integer")
