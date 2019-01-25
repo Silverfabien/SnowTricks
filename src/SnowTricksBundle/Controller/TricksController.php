@@ -58,16 +58,46 @@ class TricksController extends Controller
     /**
      * @Route("/edit/tricks/{slug}", name="snowtricks_edittricks")
      */
-    public function editAction()
+    public function editAction(Request $request, Tricks $tricks)
     {
+        $form = $this->createForm(TricksType::class, $tricks);
+        $form->handleRequest($request);
 
+        if($form->isSubmitted() && $form->isValid())
+        {
+            $this->getDoctrine()->getManager()->flush();
+
+            return $this->redirectToRoute('snowtricks_viewtricks', ['slug' => $tricks->getSlug()]);
+        }
+
+        return $this->render("@SnowTricks/tricks/edit.html.twig", ['editTricksForm' => $form->createView()]);
     }
 
     /**
      * @Route("/delete/tricks/{slug}", name="snowtricks_deletetricks")
      */
-    public function deleteAction()
+    public function deleteAction(Request $request, Tricks $tricks)
     {
+        $form = $this->createDeleteForm($tricks);
+        $form->handleRequest($request);
 
+        if($form->isSubmitted() && $form->isValid())
+        {
+            $deleteForm = $this->getDoctrine()->getManager();
+            $deleteForm->remove($tricks);
+            $deleteForm->flush();
+
+            return $this->redirectToRoute('snowtricks_homepage');
+        }
+
+        return $this->render('@SnowTricks/tricks/delete.html.twig', ['deleteTricksForm' => $form->createView()]);
+    }
+
+    public function createDeleteForm(Tricks $tricks)
+    {
+        return $this->createFormBuilder()
+            ->setAction($this->generateUrl('snowtricks_deletetricks', ['slug' => $tricks->getSlug()]))
+            ->setMethod('DELETE')
+            ->getForm();
     }
 }

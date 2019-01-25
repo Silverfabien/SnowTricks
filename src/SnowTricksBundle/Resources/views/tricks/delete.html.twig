@@ -3,7 +3,11 @@
 
     <div class="container">
         <div class="row">
-
+            <p>Êtes-vous sur de vouloir supprimer définitivement ce tricks ?&nbsp;</p>
+            {{ form_start(deleteTricksForm) }}
+            {{ form_rest(deleteTricksForm) }}
+            <button type="submit" class="btn btn-danger"><span class="fa fa-trash"> Supprimer</span></button>
+            {{ form_end(deleteTricksForm) }}
         </div>
     </div>
 
