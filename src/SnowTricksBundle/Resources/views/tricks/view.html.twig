@@ -21,7 +21,19 @@
     <div class="container">
         <h4>Description :</h4>
         <p>{{ trick.description }}</p>
-
+        <hr>
+        <h4>Espace commentaire</h4>
+        <div class="form-group">
+            {{ form_start(addCommentForm, {'attr': {'novalidate': 'novalidate'}}) }}
+            {{ form_widget(addCommentForm) }}
+            <button type="submit" class="btn btn-primary">Envoyer</button>
+            {{ form_end(addCommentForm) }}
+        </div>
+        {% for comment in comments %}
+            <p><b>{{ comment.user.username }}</b> le <em>{{ comment.createdAt|date("d-m-Y à H:i:s") }}</em></p>
+            <p>{{ comment.content|capitalize }}</p>
+            <hr>
+        {% endfor %}
     </div>
 
 {% endblock %}
