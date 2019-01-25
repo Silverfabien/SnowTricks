@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+
+    <div class="container">
+        <div class="row">
+            <h3>Formulaire d'ajout d'un Tricks</h3>
+            <div class="container form-group">
+                {{ form_start(addTricksForm, {'attr': {'novalidate': 'novalidate'}}) }}
+                {{ form_widget(addTricksForm) }}
+                <button type="submit" class="btn btn-primary">Envoyer</button>
+                {{ form_end(addTricksForm) }}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
