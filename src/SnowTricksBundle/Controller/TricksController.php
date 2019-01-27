@@ -3,11 +3,15 @@
 namespace SnowTricksBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use SnowTricksBundle\Entity\Comment;
 use SnowTricksBundle\Entity\Tricks;
+use SnowTricksBundle\Entity\User;
+use SnowTricksBundle\Form\CommentType;
 use SnowTricksBundle\Form\TricksType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 class TricksController extends Controller
 {
@@ -25,11 +29,30 @@ class TricksController extends Controller
     /**
      * @Route("/tricks/{slug}", name="snowtricks_viewtricks")
      */
-    public function viewAction($slug)
+    public function viewAction(Request $request, Tricks $tricks, UserInterface $user, $slug)
     {
-        $trick = $this->getDoctrine()->getRepository(Tricks::class)->findOneBy(['slug' => $slug]);
+        $comment = new Comment();
+        $form = $this->createForm(CommentType::class, $comment);
+        $form->handleRequest($request);
 
-        return $this->render('@SnowTricks/tricks/view.html.twig', ['trick' => $trick]);
+        if($form->isSubmitted() && $form->isValid())
+        {
+            $comment->setTrick($tricks);
+            $comment->setUser($user);
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($comment);
+            $em->flush();
+
+            return $this->redirectToRoute('snowtricks_viewtricks', ['slug' => $slug]);
+        }
+
+        $em = $this->getDoctrine()->getManager();
+        $comments = $em->getRepository('SnowTricksBundle:Comment')->findBy(['trick' => $tricks]);
+
+        $tricks = $this->getDoctrine()->getRepository(Tricks::class)->findOneBy(['slug' => $slug]);
+
+        return $this->render('@SnowTricks/tricks/view.html.twig', ['trick' => $tricks, 'addCommentForm' => $form->createView(), 'comments' => $comments]);
     }
 
     /** Gestion des Tricks */
