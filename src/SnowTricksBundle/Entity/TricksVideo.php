@@ -10,6 +10,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @ORM\Table(name="tricks_video")
  * @ORM\Entity(repositoryClass="SnowTricksBundle\Repository\TricksVideoRepository")
+ * @ORM\HasLifecycleCallbacks
  */
 class TricksVideo
 {
@@ -54,7 +55,6 @@ class TricksVideo
      * )
      */
     private $url;
-
 
     /**
      * Get id
@@ -156,6 +156,12 @@ class TricksVideo
         $this->setType('dailymotion');
 
     }
+
+    /**
+     * @ORM\PrePersist()
+     * @ORM\PreUpdate()
+     * @ORM\PreFlush()
+     */
 
     public function extractIdentif()
     {
