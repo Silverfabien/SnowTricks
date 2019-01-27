@@ -90,7 +90,20 @@ class TricksController extends Controller
 
         if($form->isSubmitted() && $form->isValid())
         {
-            $this->getDoctrine()->getManager()->flush();
+            $em = $this->getDoctrine()->getManager();
+
+            $toKeep = $request->request->get('picture_to_keep', []);
+
+            foreach($tricks->getPictures() as $picture)
+            {
+                if(!in_array($picture->getId(), array_merge($toKeep, [null])))
+                {
+                    $tricks->removePicture($picture);
+                    $em->remove($picture);
+                }
+            }
+
+            $em->flush();
 
             return $this->redirectToRoute('snowtricks_viewtricks', ['slug' => $tricks->getSlug()]);
         }
