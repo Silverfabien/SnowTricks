@@ -2,6 +2,7 @@
 
 namespace SnowTricksBundle\Entity;
 
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints\DateTime;
 
@@ -214,5 +215,32 @@ class Tricks
         }
 
         return $name;
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getComment()
+    {
+        return $this->comment;
+    }
+
+    /**
+     * @param Comment $comment
+     * @return Tricks
+     */
+    public function addComment(Comment $comment)
+    {
+        $this->comment[] = $comment;
+
+        return $this;
+    }
+
+    /**
+     * @param Comment $comment
+     */
+    public function removeComment(Comment $comment)
+    {
+        $this->comment->removeElement($comment);
     }
 }
