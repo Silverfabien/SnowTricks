@@ -18,3 +18,5 @@
 /.idea
 /composer.lock
 *.php~
+/web/uploads/pictures/*
+!/web/uploads/pictures/.gitkeep
