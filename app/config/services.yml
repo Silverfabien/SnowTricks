@@ -44,3 +44,10 @@ services:
         class: Twig_Extensions_Extension_Text
         tags:
             - { name: twig.extension }
+
+    snowtricks.listener:
+        class: SnowTricksBundle\Listener\PictureListener
+        public: true
+        tags:
+            - { name: doctrine.event_listener, event: prePersist }
+            - { name: doctrine.event_listener, event: postRemove }
