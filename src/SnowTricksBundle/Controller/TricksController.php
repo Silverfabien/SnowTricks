@@ -2,10 +2,8 @@
 
 namespace SnowTricksBundle\Controller;
 
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use SnowTricksBundle\Entity\Comment;
 use SnowTricksBundle\Entity\Tricks;
-use SnowTricksBundle\Entity\User;
 use SnowTricksBundle\Form\CommentType;
 use SnowTricksBundle\Form\TricksType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
