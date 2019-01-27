@@ -21,7 +21,7 @@ class PictureUploader implements Uploader
 
     public function remove($picture)
     {
-        unlink($this->getTargetDirectory().$picture->getFileName);
+        unlink($this->getTargetDirectory().$picture->getFileName());
     }
 
     public function getTargetDirectory()
