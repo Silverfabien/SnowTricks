@@ -19,11 +19,12 @@ class RegisterType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('username', TextType::class, ['label' => 'Votre Pseudo :', 'required' => true,
-                'constraints' => [new NotBlank(['message' => 'Veuillez renseigné votre pseudo'])]])
-            ->add('plainPassword', PasswordType::class, ['label' => 'Votre Mot de passe :', 'required' => true,
-                'constraints' => [new NotBlank(['message' => 'Veuillez renseigné votre mot de passe'])]])
-            ->add('email', EmailType::class, ['label' => 'Votre Email :', 'required' => true,
-                'constraints' => [new NotBlank(['message' => 'Veuillez renseigné votre email']), new Email(['message' => "Votre email {{ value }}, n'est pas un email valide"])]]);
+                    'constraints' => [new NotBlank(['message' => 'Veuillez renseigné votre pseudo'])]])
+                ->add('plainPassword', PasswordType::class, ['label' => 'Votre Mot de passe :', 'required' => true,
+                    'constraints' => [new NotBlank(['message' => 'Veuillez renseigné votre mot de passe'])]])
+                ->add('email', EmailType::class, ['label' => 'Votre Email :', 'required' => true,
+                    'constraints' => [new NotBlank(['message' => 'Veuillez renseigné votre email']), new Email(['message' => "Votre email {{ value }}, n'est pas un email valide"])]])
+                ->add('picture', UserPictureType::class, ['label' => false]);
     }
 
     /**
