@@ -55,7 +55,9 @@
             {{ form_end(addCommentForm) }}
         </div>
         {% for comment in comments %}
-            <p><b>{{ comment.user.username }}</b> le <em>{{ comment.createdAt|date("d-m-Y à H:i:s") }}</em></p>
+            <p><img src="{{ asset('uploads/pictures/' ~ comment.user.picture.fileName) }}" height="50px" width="50px" class="rounded-circle" alt="">
+                <b>{{ comment.user.username }}</b> le <em>{{ comment.createdAt|date("d-m-Y à H:i:s") }}</em>
+            </p>
             <p>{{ comment.content|capitalize }}</p>
             <hr>
         {% endfor %}
