@@ -27,7 +27,7 @@ class TricksController extends Controller
     /**
      * @Route("/tricks/{slug}", name="snowtricks_viewtricks")
      */
-    public function viewAction(Request $request, Tricks $tricks, UserInterface $user, $slug)
+    public function viewAction(Request $request, Tricks $tricks, UserInterface $user = null, $slug)
     {
         $comment = new Comment();
         $form = $this->createForm(CommentType::class, $comment);
