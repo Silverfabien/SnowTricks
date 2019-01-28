@@ -3,6 +3,7 @@
 namespace SnowTricksBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
@@ -10,9 +11,17 @@ use Symfony\Component\Security\Core\User\UserInterface;
  *
  * @ORM\Table(name="user")
  * @ORM\Entity(repositoryClass="SnowTricksBundle\Repository\UserRepository")
+ *
+ * @UniqueEntity("username", message="Ce nom est déjà utilisé")
+ * @UniqueEntity("email", message="Cette email est déjà utilisé")
  */
 class User implements UserInterface
 {
+    /**
+     * @ORM\OneToOne(targetEntity="SnowTricksBundle\Entity\UserPicture", cascade={"persist", "remove"})
+     */
+    private $picture;
+
     /**
      * @var int
      *
@@ -61,7 +70,27 @@ class User implements UserInterface
 
     public function __construct()
     {
-        $this->created_at = new \DateTime();
+        $this->created = new \DateTime();
+    }
+
+    /**
+     * @return UserPicture
+     */
+    public function getPicture()
+    {
+        return $this->picture;
+    }
+
+    /**
+     * @param UserPicture $picture
+     *
+     * @return User
+     */
+    public function setPicture(UserPicture $picture = null)
+    {
+        $this->picture = $picture;
+
+        return $this;
     }
 
     /**
