@@ -7,6 +7,11 @@
             <div class="container form-group">
                 {{ form_start(editTricksForm, {'attr': {'novalidate': 'novalidate'}}) }}
                 {{ form_widget(editTricksForm) }}
+                {% for trickPictures in tricks.pictures %}
+                    <div class="imgEditFigure"><input type="hidden" name="picture_to_keep[]" value="{{ trickPictures.id }}">
+                        <img width="200px" class="imgEditTricks" src="{{ asset('uploads/pictures/' ~ trickPictures.fileName) }}" alt="">
+                    </div>
+                {% endfor %}
                 <button type="submit" class="btn btn-primary"><span class="fa fa-pencil"> Éditer</span></button>
                 {{ form_end(editTricksForm) }}
             </div>
@@ -14,10 +19,12 @@
     </div>
 
 {% endblock %}
-{% block javascripts %}
 
+{% block javascripts %}
+    
     {{ parent() }}
     <script>
+
         jQuery(document).ready(function () {
             initMultiForm($('#snowtricksbundle_tricks_pictures'), 'Ajouter une nouvelle image');
             initMultiForm($('#snowtricksbundle_tricks_videos'), 'Ajouter une nouvelle vidéo');
@@ -56,12 +63,14 @@
 
         function addTagFormDeleteLink($tagFormLi) {
             var $removeFormA = $('<a href="#">Supprimer cette image</a>');
+
             $tagFormLi.append($removeFormA);
-            $removeFormA.on('click', function (e) {
+            $removeFormA.on('click', function(e) {
                 e.preventDefault();
                 $tagFormLi.remove();
             });
         }
+
     </script>
 
 {% endblock %}

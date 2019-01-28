@@ -108,7 +108,7 @@ class TricksController extends Controller
             return $this->redirectToRoute('snowtricks_viewtricks', ['slug' => $tricks->getSlug()]);
         }
 
-        return $this->render("@SnowTricks/tricks/edit.html.twig", ['editTricksForm' => $form->createView()]);
+        return $this->render("@SnowTricks/tricks/edit.html.twig", ['tricks' => $tricks, 'editTricksForm' => $form->createView()]);
     }
 
     /**
