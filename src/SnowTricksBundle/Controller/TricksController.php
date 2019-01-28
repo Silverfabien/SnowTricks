@@ -27,7 +27,7 @@ class TricksController extends Controller
     /**
      * @Route("/tricks/{slug}", name="snowtricks_viewtricks")
      */
-    public function viewAction(Request $request, Tricks $tricks, UserInterface $user, $slug)
+    public function viewAction(Request $request, Tricks $tricks, UserInterface $user = null, $slug)
     {
         $comment = new Comment();
         $form = $this->createForm(CommentType::class, $comment);
@@ -90,12 +90,25 @@ class TricksController extends Controller
 
         if($form->isSubmitted() && $form->isValid())
         {
-            $this->getDoctrine()->getManager()->flush();
+            $em = $this->getDoctrine()->getManager();
+
+            $toKeep = $request->request->get('picture_to_keep', []);
+
+            foreach($tricks->getPictures() as $picture)
+            {
+                if(!in_array($picture->getId(), array_merge($toKeep, [null])))
+                {
+                    $tricks->removePicture($picture);
+                    $em->remove($picture);
+                }
+            }
+
+            $em->flush();
 
             return $this->redirectToRoute('snowtricks_viewtricks', ['slug' => $tricks->getSlug()]);
         }
 
-        return $this->render("@SnowTricks/tricks/edit.html.twig", ['editTricksForm' => $form->createView()]);
+        return $this->render("@SnowTricks/tricks/edit.html.twig", ['tricks' => $tricks, 'editTricksForm' => $form->createView()]);
     }
 
     /**

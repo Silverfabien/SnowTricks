@@ -53,7 +53,15 @@
             {% for trick in tricks %}
             <div class="col-lg-3 col-sm-6 portfolio-item">
                 <div class="card h-100">
-                    <a href="{{ path('snowtricks_viewtricks', {'slug': trick.slug}) }}"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
+                    <a href="{{ path('snowtricks_viewtricks', {'slug': trick.slug}) }}">
+                        {% for trickPicture in trick.pictures %}
+                            {% if loop.first %}
+                                <img class="card-img-top" height="150px" src="{{ asset('uploads/pictures/' ~ trick.pictures.0.fileName) }}" alt="">
+                            {% endif %}
+                        {% else %}
+                            <img class="card-img-top" src="http://placehold.it/700x400" height="150px" alt="">
+                        {% endfor %}
+                    </a>
                     <div class="card-body">
                         <h4 class="card-title">
                             <a href="{{ path('snowtricks_viewtricks', {'slug': trick.slug}) }}">{{ trick.name }}</a>

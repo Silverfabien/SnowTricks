@@ -7,10 +7,70 @@
             <div class="container form-group">
                 {{ form_start(editTricksForm, {'attr': {'novalidate': 'novalidate'}}) }}
                 {{ form_widget(editTricksForm) }}
+                {% for trickPictures in tricks.pictures %}
+                    <div class="imgEditFigure"><input type="hidden" name="picture_to_keep[]" value="{{ trickPictures.id }}">
+                        <img width="200px" class="imgEditTricks" src="{{ asset('uploads/pictures/' ~ trickPictures.fileName) }}" alt="">
+                    </div>
+                {% endfor %}
                 <button type="submit" class="btn btn-primary"><span class="fa fa-pencil"> Éditer</span></button>
                 {{ form_end(editTricksForm) }}
             </div>
         </div>
     </div>
+
+{% endblock %}
+
+{% block javascripts %}
+    
+    {{ parent() }}
+    <script>
+
+        jQuery(document).ready(function () {
+            initMultiForm($('#snowtricksbundle_tricks_pictures'), 'Ajouter une nouvelle image');
+            initMultiForm($('#snowtricksbundle_tricks_videos'), 'Ajouter une nouvelle vidéo');
+
+            $('.imgEditTricks').each(function () {
+                console.log($(this));
+                addTagFormDeleteLink($(this));
+            });
+        });
+
+        function initMultiForm($collectionHolder, labelLink) {
+            var $addFormLink = $('<a href="#" class="add_tag_link">'+labelLink+'</a>');
+            var $newLinkLi = $('<div></div>').append($addFormLink);
+
+            $collectionHolder.append($newLinkLi);
+            $collectionHolder.data('index', $collectionHolder.find(':input').length);
+            $addFormLink.on('click', function (e) {
+                e.preventDefault();
+                addPrototypeForm($collectionHolder, $newLinkLi);
+            });
+        }
+
+        function addPrototypeForm($collectionHolder, $newLinkLi) {
+            var prototype = $collectionHolder.data('prototype');
+            var index = $collectionHolder.data('index');
+            var newForm = prototype;
+
+            newForm = newForm.replace(/__name__/g, index);
+            $collectionHolder.data('index', index + 1);
+
+            var $newFormLi = $('<div></div>').append(newForm);
+            $newLinkLi.before($newFormLi);
+
+            addTagFormDeleteLink($newFormLi);
+        }
+
+        function addTagFormDeleteLink($tagFormLi) {
+            var $removeFormA = $('<a href="#">Supprimer cette image</a>');
+
+            $tagFormLi.append($removeFormA);
+            $removeFormA.on('click', function(e) {
+                e.preventDefault();
+                $tagFormLi.remove();
+            });
+        }
+
+    </script>
 
 {% endblock %}

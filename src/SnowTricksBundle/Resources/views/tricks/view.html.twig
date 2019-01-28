@@ -5,19 +5,44 @@
     <div class="container">
         <span>Ajouté le {{ trick.createdAt|date('d/m/Y à H\\hi') }}</span>
         <h3>{{ trick.name }}</h3>
-        <div class="carousel-item active" style="background-image: url('{{ asset('https://i.stack.imgur.com/8cenv.png') }}');
-                height: 400px">
-            {% if app.user %}
-                <div class="container" style="text-align: right">
-                    <div class="d-none d-md-block">
-                        <a href="{{ path('snowtricks_edittricks', {'slug': trick.slug}) }}" class="btn btn-info"><span class="fa fa-pencil"></span></a>&nbsp;
-                        <a href="{{ path('snowtricks_deletetricks', {'slug': trick.slug}) }}" class="btn btn-danger"><span class="fa fa-trash-o"></span></a>
-                    </div>
+            {% for tricksPicture in trick.pictures %}
+                {% if loop.first %}
+                <div class="carousel-item active" style="background-image: url('{{ asset('uploads/pictures/' ~ tricksPicture.fileName) }}');height: 400px; width: 1140px">
+                    {% if app.user %}
+                        <div class="container" style="text-align: right">
+                            <div class="d-none d-md-block">
+                                <a href="{{ path('snowtricks_edittricks', {'slug': trick.slug}) }}" class="btn btn-info"><span class="fa fa-pencil"></span></a>&nbsp;
+                                <a href="{{ path('snowtricks_deletetricks', {'slug': trick.slug}) }}" class="btn btn-danger"><span class="fa fa-trash-o"></span></a>
+                            </div>
+                        </div>
+                    {% endif %}
+                {% endif %}
                 </div>
-            {% endif %}
+                {% else %}
+                    <div class="carousel-item active" style="background-image: url('{{ asset('https://i.stack.imgur.com/8cenv.png') }}');height: 400px"></div>
+            {% endfor %}
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="row">
+                    {% for tricksPicture in trick.pictures %}
+                        {% if loop.first %}
+                        {% else %}
+                            <div class="col-lg-4"><img src="{{ asset('uploads/pictures/' ~ tricksPicture.fileName) }}" width="190px" height="150px" alt="" style="padding-right: 2px; margin-top: 5px"></div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="row">
+                    {% for tricksVideo in trick.videos %}
+                        <div class="col-lg-4"><span style="width: 200px;">{{ tricksVideo.htmlVideoIFrame()|raw}}</span></div>
+                    {% endfor %}
+                </div>
+            </div>
         </div>
     </div>
-
     <div class="container">
         <h4>Description :</h4>
         <p>{{ trick.description }}</p>
@@ -30,7 +55,9 @@
             {{ form_end(addCommentForm) }}
         </div>
         {% for comment in comments %}
-            <p><b>{{ comment.user.username }}</b> le <em>{{ comment.createdAt|date("d-m-Y à H:i:s") }}</em></p>
+            <p><img src="{{ asset('uploads/pictures/' ~ comment.user.picture.fileName) }}" height="50px" width="50px" class="rounded-circle" alt="">
+                <b>{{ comment.user.username }}</b> le <em>{{ comment.createdAt|date("d-m-Y à H:i:s") }}</em>
+            </p>
             <p>{{ comment.content|capitalize }}</p>
             <hr>
         {% endfor %}

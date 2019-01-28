@@ -2,6 +2,7 @@
 
 namespace SnowTricksBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints\DateTime;
@@ -18,6 +19,16 @@ class Tricks
      * @ORM\OneToMany(targetEntity="SnowTricksBundle\Entity\Comment", mappedBy="trick", cascade={"persist", "remove"})
      */
     private $comment;
+
+    /**
+     * @ORM\OneToMany(targetEntity="SnowTricksBundle\Entity\TricksPicture", mappedBy="tricks", cascade={"persist", "remove"})
+     */
+    private $pictures;
+
+    /**
+     * @ORM\OneToMany(targetEntity="SnowTricksBundle\Entity\TricksVideo", mappedBy="tricks", cascade={"persist", "remove"})
+     */
+    private $videos;
 
     /**
      * @var int
@@ -66,6 +77,9 @@ class Tricks
     public function __construct()
     {
         $this->createdAt = new \DateTime();
+        $this->pictures = new ArrayCollection();
+        $this->videos = new ArrayCollection();
+        $this->comment = new ArrayCollection();
     }
 
     /**
@@ -242,5 +256,61 @@ class Tricks
     public function removeComment(Comment $comment)
     {
         $this->comment->removeElement($comment);
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPictures()
+    {
+        return $this->pictures;
+    }
+
+    /**
+     * @param TricksPicture $picture
+     * @return Tricks
+     */
+    public function addPicture(TricksPicture $picture)
+    {
+        $picture->setTricks($this);
+        $this->pictures[] = $picture;
+
+        return $this;
+    }
+
+    /**
+     * @param TricksPicture $picture
+     */
+    public function removePicture(TricksPicture $picture)
+    {
+        $this->pictures->removeElement($picture);
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getVideos()
+    {
+        return $this->videos;
+    }
+
+    /**
+     * @param TricksVideo $video
+     * @return Tricks
+     */
+    public function addVideo(TricksVideo $video)
+    {
+        $video->setTricks($this);
+        $this->videos[] = $video;
+
+        return $this;
+    }
+
+    /**
+     * @param TricksVideo $video
+     */
+    public function removeVideo(TricksVideo $video)
+    {
+        $this->videos->removeElement($video);
     }
 }
