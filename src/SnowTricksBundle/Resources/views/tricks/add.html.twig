@@ -18,9 +18,15 @@
 
     {{ parent() }}
     <script>
+
         jQuery(document).ready(function () {
             initMultiForm($('#snowtricksbundle_tricks_pictures'), 'Ajouter une nouvelle image');
             initMultiForm($('#snowtricksbundle_tricks_videos'), 'Ajouter une nouvelle vidéo');
+
+            $('.imgEditTricks').each(function () {
+                console.log($(this));
+                addTagFormDeleteLink($(this));
+            });
         });
 
         function initMultiForm($collectionHolder, labelLink) {
@@ -45,7 +51,20 @@
 
             var $newFormLi = $('<div></div>').append(newForm);
             $newLinkLi.before($newFormLi);
+
+            addTagFormDeleteLink($newFormLi);
         }
+
+        function addTagFormDeleteLink($tagFormLi) {
+            var $removeFormA = $('<a href="#">Supprimer ce contenu</a>');
+
+            $tagFormLi.append($removeFormA);
+            $removeFormA.on('click', function(e) {
+                e.preventDefault();
+                $tagFormLi.remove();
+            });
+        }
+
     </script>
 
 {% endblock %}
