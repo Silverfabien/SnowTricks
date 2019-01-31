@@ -56,10 +56,14 @@
                     <a href="{{ path('snowtricks_viewtricks', {'slug': trick.slug}) }}">
                         {% for trickPicture in trick.pictures %}
                             {% if loop.first %}
-                                <img class="card-img-top" height="150px" src="{{ asset('uploads/pictures/' ~ trick.pictures.0.fileName) }}" alt="">
+                                <img class="card-img-top" height="150px" title="{{ trick.name }}" src="{{ asset('uploads/pictures/' ~ trick.pictures.0.fileName) }}" alt="">
                             {% endif %}
                         {% else %}
-                            <img class="card-img-top" src="http://placehold.it/700x400" height="150px" alt="">
+                            <img class="card-img-top" title="Aucune image" src="http://placehold.it/700x400" height="150px" alt="">
+                        {% endfor %}
+                        {% for trickvideo in trick.videos %}
+                        {% else %}
+                            <img src="{{ asset('pictures/aucune vidéo.png') }}" title="Aucune vidéo" alt="Pad de vidéo" height="20px" style="display: block; margin-top: -20px; margin-left: auto; margin-right: auto">
                         {% endfor %}
                     </a>
                     <div class="card-body">
