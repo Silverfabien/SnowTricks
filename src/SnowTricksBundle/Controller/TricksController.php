@@ -14,28 +14,28 @@ use Symfony\Component\Security\Core\User\UserInterface;
 class TricksController extends Controller
 {
     /**
-     * @Route("/tricks/{page}", requirements={"page" = "\d+"}, name="snowtricks_homepage")
+     * @Route("/{page}", requirements={"page" = "\d+"}, name="snowtricks_homepage")
      */
     public function indexAction($page = 1)
     {
-        $maxPerPages = 4;
+        $maxPerPage = 8;
+
         $em = $this->getDoctrine()->getManager();
-        $tricks = $em->getRepository('SnowTricksBundle:Tricks')->getAllTricks($page, $maxPerPages);
+        $tricks = $em->getRepository('SnowTricksBundle:Tricks')->getAllPosts($page, $maxPerPage);
 
-        $pagination = [
-            'page' => $page,
-            'route' => 'snowtricks_homepage',
-            'nbPages' => ceil(count($tricks) / (float)$maxPerPages),
-            'route_params' => []
-        ];
+        $totalPosts = $tricks->count();
 
-        return $this->render('@SnowTricks/Default/index.html.twig', ['tricks' => $tricks, 'pagination' => $pagination]);
+        return $this->render('@SnowTricks/Default/index.html.twig', ['pagination' => [
+            'nbPages' => (int) ceil($totalPosts / $maxPerPage),
+            'currentPage' => (int) $page,
+            'tricks' => $tricks
+        ]]);
     }
 
     /**
-     * @Route("/tricks/{slug}", name="snowtricks_viewtricks")
+     * @Route("/tricks/{slug}/{page}", name="snowtricks_viewtricks")
      */
-    public function viewAction(Request $request, Tricks $tricks, UserInterface $user = null, $slug)
+    public function viewAction(Request $request, Tricks $tricks, UserInterface $user = null, $slug, $page = 1)
     {
         $comment = new Comment();
         $form = $this->createForm(CommentType::class, $comment);

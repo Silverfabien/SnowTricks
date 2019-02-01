@@ -43,14 +43,14 @@
         </div>
     </header>
 
-    <div class="container" style="margin-top: 10px">
+   <div class="container" style="margin-top: 10px">
         {% if app.user %}
             <a class="btn btn-success" href="{{ path('snowtricks_addtricks') }}"><span class="fa fa-plus"> Ajouter un Tricks</span></a>
         {% endif %}
         <h2>Liste des Tricks</h2>
 
         <div class="row">
-            {% for trick in tricks %}
+            {% for trick in pagination.tricks %}
             <div class="col-lg-3 col-sm-6 portfolio-item">
                 <div class="card h-100">
                     <a href="{{ path('snowtricks_viewtricks', {'slug': trick.slug}) }}">
@@ -85,25 +85,25 @@
     {% if pagination.nbPages > 0 %}
         <div class="container" style="text-align: center">
             <ul class="pagination" style="display: inline-flex">
-                {% if pagination.page > 1 %}
+                {% if pagination.currentPage > 1 %}
                     <li class="page-item">
-                        <a class="page-link" href="{{ path(pagination.route, pagination.route_params|merge({'page': 1})) }}"><<</a>
+                        <a class="page-link" href="{{ path('snowtricks_homepage', {'page': 1}) }}"><<</a>
                     </li>
                     <li class="page-item">
-                        <a class="page-link" href="{{ path(pagination.route, pagination.route_params|merge({'page': pagination.page-1})) }}"><</a>
+                        <a class="page-link" href="{{ path('snowtricks_homepage', {'page': pagination.currentPage-1}) }}"><</a>
                     </li>
                 {% endif %}
-                {% for p in range(max(pagination.page-4, 1), min(pagination.page+4, pagination.nbPages)) %}
-                    <li {% if p == pagination.page %} class="active page-item"{% endif %}>
-                        <a class="page-link" href="{{ path(pagination.route, pagination.route_params|merge({'page': p})) }}">{{ p }}</a>
+                {% for p in range(max(pagination.currentPage-4, 1), min(pagination.currentPage+4, pagination.nbPages)) %}
+                    <li {% if p == pagination.currentPage %} class="active page-item"{% endif %}>
+                        <a class="page-link" href="{{ path('snowtricks_homepage', {'page': p}) }}">{{ p }}</a>
                     </li>
                 {% endfor %}
-                {% if pagination.page < pagination.nbPages %}
+                {% if pagination.currentPage < pagination.nbPages %}
                     <li class="page-item">
-                        <a class="page-link" href="{{ path(pagination.route, pagination.route_params|merge({'page': pagination.page+1})) }}">></a>
+                        <a class="page-link" href="{{ path('snowtricks_homepage', {'page': pagination.currentPage+1}) }}">></a>
                     </li>
                     <li class="page-item">
-                        <a class="page-link" href="{{ path(pagination.route, pagination.route_params|merge({'page': pagination.nbPages})) }}">>></a>
+                        <a class="page-link" href="{{ path('snowtricks_homepage', {'page': pagination.nbPages}) }}">>></a>
                     </li>
                 {% endif %}
             </ul>
