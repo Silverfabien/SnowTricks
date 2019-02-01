@@ -14,14 +14,22 @@ use Symfony\Component\Security\Core\User\UserInterface;
 class TricksController extends Controller
 {
     /**
-     * @Route("/", name="snowtricks_homepage")
+     * @Route("/tricks/{page}", requirements={"page" = "\d+"}, name="snowtricks_homepage")
      */
-    public function indexAction()
+    public function indexAction($page = 1)
     {
-        $tricks = $this->getDoctrine()->getManager()->getRepository(Tricks::class);
-        $trick = $tricks->findAll();
+        $maxPerPages = 4;
+        $em = $this->getDoctrine()->getManager();
+        $tricks = $em->getRepository('SnowTricksBundle:Tricks')->getAllTricks($page, $maxPerPages);
 
-        return $this->render('@SnowTricks/Default/index.html.twig', ['tricks' => $trick]);
+        $pagination = [
+            'page' => $page,
+            'route' => 'snowtricks_homepage',
+            'nbPages' => ceil(count($tricks) / (float)$maxPerPages),
+            'route_params' => []
+        ];
+
+        return $this->render('@SnowTricks/Default/index.html.twig', ['tricks' => $tricks, 'pagination' => $pagination]);
     }
 
     /**
