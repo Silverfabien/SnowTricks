@@ -62,4 +62,32 @@
         {% endfor %}
     </div>
 
+    {% if pagination.nbPages > 0 %}
+        <div class="container" style="text-align: center">
+            <ul class="pagination" style="display: inline-flex">
+                {% if pagination.currentPage > 1 %}
+                    <li class="page-item">
+                        <a class="page-link" href="{{ path('snowtricks_viewtricks', {'slug': trick.slug, 'page': 1}) }}"><<</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="{{ path('snowtricks_viewtricks', {'slug': trick.slug ,'page': pagination.currentPage-1}) }}"><</a>
+                    </li>
+                {% endif %}
+                {% for p in range(max(pagination.currentPage-4, 1), min(pagination.currentPage+4, pagination.nbPages)) %}
+                    <li {% if p == pagination.currentPage %} class="active page-item"{% endif %}>
+                        <a class="page-link" href="{{ path('snowtricks_viewtricks', {'slug': trick.slug, 'page': p}) }}">{{ p }}</a>
+                    </li>
+                {% endfor %}
+                {% if pagination.currentPage < pagination.nbPages %}
+                    <li class="page-item">
+                        <a class="page-link" href="{{ path('snowtricks_viewtricks', {'slug': trick.slug, 'page': pagination.currentPage+1}) }}">></a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="{{ path('snowtricks_viewtricks', {'slug': trick.slug, 'page': pagination.nbPages}) }}">>></a>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+    {% endif %}
+
 {% endblock %}

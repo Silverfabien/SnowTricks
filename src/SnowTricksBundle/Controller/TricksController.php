@@ -35,11 +35,13 @@ class TricksController extends Controller
     /**
      * @Route("/tricks/{slug}/{page}", name="snowtricks_viewtricks")
      */
-    public function viewAction(Request $request, Tricks $tricks, UserInterface $user = null, $slug, $page = 1)
+    public function viewAction(Request $request, UserInterface $user = null, $slug, $page = 1)
     {
         $comment = new Comment();
         $form = $this->createForm(CommentType::class, $comment);
         $form->handleRequest($request);
+
+        $tricks = $this->getDoctrine()->getRepository(Tricks::class)->findOneBy(['slug' => $slug]);
 
         if($form->isSubmitted() && $form->isValid())
         {
@@ -53,12 +55,16 @@ class TricksController extends Controller
             return $this->redirectToRoute('snowtricks_viewtricks', ['slug' => $slug]);
         }
 
+        $maxPerPage = 10;
         $em = $this->getDoctrine()->getManager();
-        $comments = $em->getRepository('SnowTricksBundle:Comment')->findBy(['trick' => $tricks]);
+        $comments = $em->getRepository('SnowTricksBundle:Comment')->getAllComments($tricks, $page, $maxPerPage);
+        $totalComments = $comments->count();
 
-        $tricks = $this->getDoctrine()->getRepository(Tricks::class)->findOneBy(['slug' => $slug]);
-
-        return $this->render('@SnowTricks/tricks/view.html.twig', ['trick' => $tricks, 'addCommentForm' => $form->createView(), 'comments' => $comments]);
+        return $this->render('@SnowTricks/tricks/view.html.twig', ['trick' => $tricks, 'addCommentForm' => $form->createView(), 'pagination' => [
+            'nbPages' => (int)ceil($totalComments / $maxPerPage),
+            'currentPage' => (int)$page,
+            'comments' => $comments
+        ]]);
     }
 
     /** Gestion des Tricks */
