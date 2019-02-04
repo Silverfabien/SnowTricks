@@ -98,7 +98,7 @@ class TricksFixtures extends Fixture
             $tricks->setName($name);
             $tricks->setDescription($description);
             $tricks->setFigureGroup($figureGroup);
-            $tricks->setCreatedAt($created);
+            $tricks->setCreatedAt(new \DateTime($created));
             $tricks->setSlug($slug);
 
             $manager->persist($tricks);
