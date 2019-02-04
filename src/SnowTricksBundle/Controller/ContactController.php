@@ -22,12 +22,10 @@ class ContactController extends Controller
             $contactMail = $this->getParameter('contact_email');
             $data = $form->getData();
             $message = \Swift_Message::newInstance("le sujet du contact est ". $data["sujet"])
-                ->setFrom(array($contactMail => "Message envoyé par ". $data["nom"]))
-                ->setTo(array($contactMail => $contactMail))
+                ->setFrom($this->getParameter('mailer_user'))
+                ->setTo(array($contactMail))
                 ->setBody($data["contenu"]. "<br>Email :" .$data["email"]);
             $this->get('mailer')->send($message);
-            dump($data);
-            die();
             return $this->redirectToRoute('snowtricks_contact');
         }
 
