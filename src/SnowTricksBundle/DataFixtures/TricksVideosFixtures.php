@@ -24,7 +24,7 @@ class TricksVideosFixtures extends Fixture
                 'https://www.youtube.com/watch?v=rDzm-lkFAI4'
             ],
             [
-                $this->getReference(TricksFixtures::TRICKS_REFERENCE.'0'),
+                $this->getReference(TricksFixtures::TRICKS_REFERENCE.'2'),
                 'youtube',
                 'FDW2UEk3aXM',
                 'https://www.youtube.com/watch?v=FDW2UEk3aXM'
