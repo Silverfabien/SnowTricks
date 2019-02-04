@@ -27,7 +27,7 @@ class LoginFormAuthenticator extends AbstractGuardAuthenticator
     /**
      * @var EntityManager
      */
-    private $em;
+    private $entityManager;
 
     /**
      * @var FormFactoryInterface
@@ -44,9 +44,9 @@ class LoginFormAuthenticator extends AbstractGuardAuthenticator
      */
     private $router;
 
-    public function __construct(EntityManager $em, FormFactoryInterface $formFactory, UserPasswordEncoder $encoder, RouterInterface $router)
+    public function __construct(EntityManager $entityManager, FormFactoryInterface $formFactory, UserPasswordEncoder $encoder, RouterInterface $router)
     {
-        $this->em = $em;
+        $this->entityManager = $entityManager;
         $this->formFactory = $formFactory;
         $this->encoder = $encoder;
         $this->router = $router;
