@@ -150,8 +150,8 @@ class TricksVideo
     {
         $dailymotion = explode("/", $url);
         $idb = $dailymotion[4];
-        $bp = explode("_", $idb);
-        $id = $bp[0];
+        $ibp = explode("_", $idb);
+        $id = $ibp[0];
         $this->setIdentif($id);
         $this->setType('dailymotion');
 
