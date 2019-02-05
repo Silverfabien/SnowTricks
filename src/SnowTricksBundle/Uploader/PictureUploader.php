@@ -13,7 +13,7 @@ class PictureUploader implements Uploader
             return null;
         }
 
-        $fileName = md5(uniqid()).'.'.$picture->getFile()->guessExtension();
+        $fileName = sha1(uniqid()).'.'.$picture->getFile()->guessExtension();
         $picture->getFile()->move($this->getTargetDirectory(), $fileName);
 
         return $fileName;
