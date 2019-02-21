@@ -110,4 +110,25 @@
         </div>
     {% endif %}
 
+    <div id="img-scroll-top">
+        <a href="#top"><img src="https://www.linuxtricks.fr/upload/to_top.png" alt="" title="Haut de la page"></a>
+    </div>
+
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+
+    <script type="text/javascript">
+        jQuery(function () {
+            $(function () {
+                $(window).scroll(function () {
+                    if ($(this).scrollTop() > 200) {
+                        $('#img-scroll-top').css('right', '100px');
+                    } else {
+                        $('#img-scroll-top').removeAttr('style')
+                    }
+                });
+            });
+        });
+    </script>
 {% endblock %}
