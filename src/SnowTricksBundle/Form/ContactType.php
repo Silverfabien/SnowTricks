@@ -4,6 +4,7 @@ namespace SnowTricksBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -25,7 +26,7 @@ class ContactType extends AbstractType
                 array('attr' => array('placeholder' => 'Votre email'),
                     'constraints' => array(new NotBlank(array("message" => "Veuillez remplir le champ email")),
                         new Email(array("message" => "Votre email {{ value }} n'est pas un email valide", "checkMX" => "false")))))
-            ->add('contenu', TextType::class,
+            ->add('contenu', TextareaType::class,
                 array('attr' => array('placeholder' => 'Contenu de votre demande'),
                     'constraints' => array(new NotBlank(array("message" => "Veuillez remplir le champ contenu")))));
 
