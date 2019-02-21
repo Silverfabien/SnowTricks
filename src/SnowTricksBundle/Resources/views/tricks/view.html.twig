@@ -66,7 +66,7 @@
         {% endif %}
         {% for comment in pagination.comments %}
             <p><img src="{{ asset('uploads/pictures/' ~ comment.user.picture.fileName) }}" height="50px" width="50px" class="rounded-circle" alt="">
-                <b>{{ comment.user.username }}</b> le <em>{{ comment.createdAt|date("d-m-Y à H:i:s") }}</em>
+                <b>{{ comment.user.username }}</b> le <em>{{ comment.createdAt|date("d/m/Y à H\\hi") }}</em>
             </p>
                 <p>{{ comment.content|capitalize }}</p>
             <hr>
