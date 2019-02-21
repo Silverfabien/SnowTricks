@@ -1,8 +1,7 @@
 {% extends 'base.html.twig' %}
 {% block body %}
 
-    <br>
-    <div class="container">
+    <div class="container contents">
         {% for label, messages in app.flashes %}
             {% for message in messages %}
                 <p class="alert alert-{{ label }}">Le pseudo ou le mot de passe est incorrect</p>

@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 {% block body %}
 
-    <div class="container" style="margin-top: 10px">
+    <div class="container contents">
         <span>Ajouté le {{ trick.createdAt|date('d/m/Y à H\\hi') }}</span>
         <h3>{{ trick.name }}</h3>
         {% for tricksPicture in trick.pictures %}

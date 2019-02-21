@@ -33,3 +33,7 @@ body {
   bottom: 100px;
   right: -100px;
 }
+
+.contents {
+  margin-top: 10px;
+}
