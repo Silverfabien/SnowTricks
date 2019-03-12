@@ -7,6 +7,7 @@
  Pour installer le projet cloner le projet et installer le avec la commande :
  
     git clone https://github.com/Silverfabien/SnowTricks.git
+    composer install
  
  ---
  
