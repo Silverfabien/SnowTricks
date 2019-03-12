@@ -7,26 +7,23 @@
  Pour installer le projet cloner le projet et installer le avec la commande :
  
     git clone https://github.com/Silverfabien/SnowTricks.git
+    
+Ensuite faites la commande suivant pour généré le paramaters.yml et ses vendor :    
+
     composer install
  
  ---
  
- 2> Accès a la BDD et à SMTP
+ 2> Accès au SMTP
  
- Base de données allez dans App/config/parameters.yml et modifier les lignes 3 à 7 si cela ne correspond pas.
-    
-        database_host: 127.0.0.1
-        database_port: null
-        database_name: snowtricks
-        database_user: root
-        database_password: null
-    
  L'envois de mail via le SMTP, modifier les lignes 8 à 11
  
-        mailer_transport: smtp
-        mailer_host: Votre gestionnaire d'Email
-        mailer_user: Votre email
-        mailer_password: Votre mot de passe
+        mailer_host: le smtp
+        mailer_port: le port
+        mailer_encryption: tls
+        mailer_user: email du smtp
+        mailer_password: mot de passe du smtp
+        contact_email: Adresse de reception
  
  ---
  
