@@ -16,19 +16,12 @@ class ContactType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('nom', TextType::class,
-                array('attr' => array('placeholder' => 'Votre pseudo'),
-                    'constraints' => array(new NotBlank(array("message" => "Veuillez remplir le champ nom")))))
-            ->add('sujet', TextType::class,
-                array('attr' => array('placeholder' => 'Sujet de votre demande'),
-                    'constraints' => array(new NotBlank(array("message" => "Veuillez remplir le champ sujet")))))
-            ->add('email', EmailType::class,
-                array('attr' => array('placeholder' => 'Votre email'),
-                    'constraints' => array(new NotBlank(array("message" => "Veuillez remplir le champ email")),
-                        new Email(array("message" => "Votre email {{ value }} n'est pas un email valide", "checkMX" => "false")))))
-            ->add('contenu', TextareaType::class,
-                array('attr' => array('placeholder' => 'Contenu de votre demande'),
-                    'constraints' => array(new NotBlank(array("message" => "Veuillez remplir le champ contenu")))));
+            ->add('nom', TextType::class, ['label' => 'Votre nom', 'constraints' => [new NotBlank(['message' => 'Veuillez renseigné le champs "Nom"'])]])
+            ->add('sujet', TextType::class, ['label' => 'Sujet de votre demande', 'constraints' => [new NotBlank(['message' => 'Veuillez remplir le champ "Sujet"'])]])
+            ->add('email', EmailType::class, ['label' => 'Votre email', 'constraints' => [new NotBlank(['message' => 'Veuillez remplir le champ "Email"']),
+                new Email(['message' => 'Votre email {{ value }} n\'est pas un email valide'])]])
+            ->add('contenu', TextareaType::class, ['label' => 'Contenu de votre demande',
+                'constraints' => [new NotBlank(['message' => 'Veuillez remplir le champ "Contenu"'])]]);
 
     }
 

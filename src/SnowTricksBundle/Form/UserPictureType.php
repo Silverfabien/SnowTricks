@@ -15,7 +15,7 @@ class UserPictureType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('file', FileType::class, ['label' => 'Votre image de profil', 'constraints' => [new NotBlank(['message' => 'Veuillez ajouté une image'])]]);
+        $builder->add('file', FileType::class, ['label' => 'Votre image de profil', 'constraints' => [new NotBlank(['message' => 'Veuillez ajouté une "Image"'])]]);
     }
 
     /**
