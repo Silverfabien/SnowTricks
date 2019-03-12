@@ -209,7 +209,7 @@ class TricksVideo
 
     public function htmlVideoIFrame()
     {
-        return '<iframe width="190px" height="150px" style="padding-left: 2px; margin-top: 5px; margin-bottom: -6.5px" src="'.$this->urlIFrame().'" frameborder="0" allowfullscreen></iframe>';
+        return '<iframe width="190px" height="150px" class="video-tricks" src="'.$this->urlIFrame().'" frameborder="0" allowfullscreen></iframe>';
     }
 
     /**
