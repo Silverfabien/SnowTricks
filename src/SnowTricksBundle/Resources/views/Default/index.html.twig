@@ -43,7 +43,7 @@
         </div>
     </header>
 
-   <div class="container contents">
+    <div class="container contents">
         {% if app.user %}
             <a class="btn btn-success" href="{{ path('snowtricks_addtricks') }}"><span class="fa fa-plus"> Ajouter un Tricks</span></a>
         {% endif %}
@@ -68,7 +68,7 @@
                     </a>
                     <div class="card-body">
                         <h4 class="card-title">
-                            <a href="{{ path('snowtricks_viewtricks', {'slug': trick.slug}) }}">{{ trick.name }}</a>
+                            <a href="{{ path('snowtricks_viewtricks', {'slug': trick.slug}) }}">{{ trick.name|truncate(35, false, '...') }}</a>
                         </h4>
                         <p class="card-text">{{ trick.description|truncate(100, true, '...') }}</p>
                     </div>
@@ -81,7 +81,6 @@
             {% endfor%}
         </div>
     </div>
-
     {% if pagination.nbPages > 0 %}
         <div class="container" style="text-align: center">
             <ul class="pagination" style="display: inline-flex">
