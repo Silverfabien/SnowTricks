@@ -4,15 +4,15 @@ namespace SnowTricksBundle\Listener;
 
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use SnowTricksBundle\Entity\UserPicture;
-use SnowTricksBundle\Uploader\Uploader;
+use SnowTricksBundle\Uploader\PictureUploader;
 
 class UserPictureListener
 {
-    private $userPictureUploader;
+    private $pictureUploader;
 
-    public function __construct(Uploader $pictureUploader)
+    public function __construct(PictureUploader $pictureUploader)
     {
-        $this->userPictureUploader = $pictureUploader;
+        $this->pictureUploader = $pictureUploader;
     }
 
     public function prePersist(LifecycleEventArgs $args)
@@ -24,7 +24,7 @@ class UserPictureListener
             return;
         }
 
-        $fileName = $this->userPictureUploader->upload($entity);
+        $fileName = $this->pictureUploader->upload($entity);
 
         if($fileName === null)
         {
@@ -32,5 +32,17 @@ class UserPictureListener
         }
 
         $entity->setFileName($fileName);
+    }
+
+    public function postRemove(LifecycleEventArgs $args)
+    {
+        $entity = $args->getEntity();
+
+        if(!$entity instanceof UserPicture)
+        {
+            return;
+        }
+
+        $this->pictureUploader->remove($entity);
     }
 }

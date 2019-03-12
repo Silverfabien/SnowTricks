@@ -4,11 +4,11 @@ namespace SnowTricksBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use SnowTricksBundle\Entity\User;
-use SnowTricksBundle\Form\ForgotPasswordType;
 use SnowTricksBundle\Form\LoginType;
 use SnowTricksBundle\Form\RegisterType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 class UserController extends Controller
 {
@@ -27,8 +27,9 @@ class UserController extends Controller
     /**
      * @Route("/account/{username}", name="snowtricks_account")
      */
-    public function editUserAction(Request $request, User $user)
+    public function editUserAction(Request $request, UserInterface $userConnected)
     {
+        $user = $this->getDoctrine()->getManager()->getRepository(User::class)->find($userConnected->getId());
         $edit = $this->createForm(RegisterType::class, $user);
         $edit->handleRequest($request);
 
