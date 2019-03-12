@@ -6,10 +6,7 @@
             <h3>Formulaire de contact</h3>
             <div class="container form-group">
                 {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
-                {{ form_row(form.nom, {'attr': {'class': 'form-control'}}) }}<br>
-                {{ form_row(form.sujet, {'attr': {'class': 'form-control'}}) }}<br>
-                {{ form_row(form.email, {'attr': {'class': 'form-control'}}) }}<br>
-                {{ form_row(form.contenu, {'attr': {'class': 'form-control'}}) }}<br>
+                {{ form_widget(form) }}
                 <button type="submit" class="btn btn-primary">Envoyer</button>
                 {{ form_end(form) }}
             </div>
