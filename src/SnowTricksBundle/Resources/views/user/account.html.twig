@@ -21,7 +21,7 @@
         <p>
             <button id="btn-modify" class="btn btn-warning" href="#edit" title="Modifier les informations de l'utilisateur">Modifier mon compte</button>
         </p>
-        <div id="edit">
+        <div id="edit" style="display: none;">
             <div class="container">
                 <div class="row">
                     <h1>Modifier mon profil</h1>
@@ -41,9 +41,12 @@
     {{ parent() }}
 
     <script type="text/javascript">
-        $('#edit').hide();
-        $('#btn-modify').click(function() {
-            $('#edit').toggle();
-        })
+        (function($) {
+            $(document).ready(function () {
+                $('.container').on('click', '#btn-modify', function(){
+                    $('#edit').toggle();
+                });
+            });
+        })(jQuery);
     </script>
 {% endblock %}
