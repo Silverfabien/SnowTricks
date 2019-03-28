@@ -85,6 +85,7 @@ class TricksController extends Controller
             $em->persist($tricks);
             $em->flush();
 
+            $this->addFlash('success', 'La figure a bien été ajouter');
             return $this->redirectToRoute('snowtricks_homepage');
         }
 
@@ -115,6 +116,7 @@ class TricksController extends Controller
 
             $em->flush();
 
+            $this->addFlash('success', 'La figure a bien été modifier');
             return $this->redirectToRoute('snowtricks_viewtricks', ['slug' => $tricks->getSlug()]);
         }
 
@@ -135,7 +137,8 @@ class TricksController extends Controller
             $deleteForm = $this->getDoctrine()->getManager();
             $deleteForm->remove($tricks);
             $deleteForm->flush();
-
+            
+            $this->addFlash('success', 'La figure a bien été supprimer');
             return $this->redirectToRoute('snowtricks_homepage');
         }
 
