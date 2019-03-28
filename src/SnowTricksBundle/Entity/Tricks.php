@@ -5,7 +5,7 @@ namespace SnowTricksBundle\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints\DateTime;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Tricks
@@ -22,6 +22,7 @@ class Tricks
 
     /**
      * @ORM\OneToMany(targetEntity="SnowTricksBundle\Entity\TricksPicture", mappedBy="tricks", cascade={"persist", "remove"})
+     * @Assert\Valid()
      */
     private $pictures;
 

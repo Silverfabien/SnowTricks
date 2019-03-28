@@ -5,6 +5,7 @@ namespace SnowTricksBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * User
@@ -19,6 +20,7 @@ class User implements UserInterface, \Serializable
 {
     /**
      * @ORM\OneToOne(targetEntity="SnowTricksBundle\Entity\UserPicture", cascade={"persist", "remove"})
+     * @Assert\Valid()
      */
     private $picture;
 

@@ -5,6 +5,7 @@ namespace SnowTricksBundle\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * TricksPicture
@@ -31,6 +32,7 @@ class TricksPicture
 
     /**
      * @var UploadedFile
+     * @Assert\File(mimeTypes={"image/png", "image/jpeg"})
      */
     private $file;
 
