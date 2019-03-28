@@ -19,7 +19,9 @@ class CommentType extends AbstractType
         $builder->add('content', TextareaType::class, ['label' => 'Votre message',
             'constraints' => [new NotBlank(['message' => 'Veuillez renseigné votre message']),
                 new Length(['max' => 2000, 'maxMessage' => 'Votre message ne doit pas dépasser 2000 caractères'])]]);
-    }/**
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function configureOptions(OptionsResolver $resolver)

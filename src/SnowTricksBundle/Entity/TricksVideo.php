@@ -167,24 +167,20 @@ class TricksVideo
     {
         $url = $this->getUrl();
 
-        if(preg_match("#^(http|https)://www.youtube.com/#", $url))
-        {
+        if (preg_match("#^(http|https)://www.youtube.com/#", $url)) {
             $this->youtubeId($url);
-        }
-        elseif(preg_match("#^(http|https)://www.dailymotion.com/#", $url))
-        {
+        } elseif (preg_match("#^(http|https)://www.dailymotion.com/#", $url)) {
             $this->dailymotionId($url);
         }
     }
 
     public function urlIFrame()
     {
-        switch($this->type)
-        {
+        switch ($this->type) {
             case 'youtube':
-                return 'https://www.youtube-nocookie.com/embed/'.strip_tags($this->getIdentif());
+                return 'https://www.youtube-nocookie.com/embed/' . strip_tags($this->getIdentif());
             case 'dailymotion':
-                return 'https://www.dailymotion.com/embed/video/'.strip_tags($this->getIdentif());
+                return 'https://www.dailymotion.com/embed/video/' . strip_tags($this->getIdentif());
         }
     }
 
@@ -193,15 +189,12 @@ class TricksVideo
         $control = $this->getType();
         $id = strip_tags($this->getIdentif());
 
-        if($control == 'youtube')
-        {
-            $picture = 'https://www.youtbe.com/vi/'.$id.'hqdefault.jpg';
+        if ($control == 'youtube') {
+            $picture = 'https://www.youtbe.com/vi/' . $id . 'hqdefault.jpg';
 
             return $picture;
-        }
-        elseif($control == 'dailymotion')
-        {
-            $picture = 'https://www.dailymotion.com/thumbmail/150x120/video/'.$id.'';
+        } elseif ($control == 'dailymotion') {
+            $picture = 'https://www.dailymotion.com/thumbmail/150x120/video/' . $id . '';
 
             return $picture;
         }
@@ -209,7 +202,8 @@ class TricksVideo
 
     public function htmlVideoIFrame()
     {
-        return '<iframe width="190px" height="150px" class="video-tricks" src="'.$this->urlIFrame().'" frameborder="0" allowfullscreen></iframe>';
+        return '<iframe width="190px" height="150px" class="video-tricks" src="' . $this->urlIFrame() . '" 
+                frameborder="0" allowfullscreen></iframe>';
     }
 
     /**

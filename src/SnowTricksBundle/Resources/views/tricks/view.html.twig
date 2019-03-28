@@ -10,20 +10,25 @@
                 {% if app.user %}
                     <div class="container" style="text-align: right">
                         <div class="d-none d-md-block">
-                            <a href="{{ path('snowtricks_edittricks', {'slug': trick.slug}) }}" class="btn btn-info"><span class="fa fa-pencil"></span></a>&nbsp;
-                            <a href="{{ path('snowtricks_deletetricks', {'slug': trick.slug}) }}" class="btn btn-danger"><span class="fa fa-trash-o"></span></a>
+                            <a href="{{ path('snowtricks_edittricks', {'slug': trick.slug}) }}"
+                               class="btn btn-info"><span class="fa fa-pencil"></span></a>&nbsp;
+                            <a href="{{ path('snowtricks_deletetricks', {'slug': trick.slug}) }}"
+                               class="btn btn-danger"><span class="fa fa-trash-o"></span></a>
                         </div>
                     </div>
                 {% endif %}
             {% endif %}
             </div>
         {% else %}
-            <div class="carousel-item active" style="background-image: url('https://i.stack.imgur.com/8cenv.png');height: 400px">
+            <div class="carousel-item active"
+                 style="background-image: url('https://i.stack.imgur.com/8cenv.png');height: 400px">
                 {% if app.user %}
                     <div class="container" style="text-align: right">
                         <div class="d-none d-md-block">
-                            <a href="{{ path('snowtricks_edittricks', {'slug': trick.slug}) }}" class="btn btn-info"><span class="fa fa-pencil"></span></a>&nbsp;
-                            <a href="{{ path('snowtricks_deletetricks', {'slug': trick.slug}) }}" class="btn btn-danger"><span class="fa fa-trash-o"></span></a>
+                            <a href="{{ path('snowtricks_edittricks', {'slug': trick.slug}) }}"
+                               class="btn btn-info"><span class="fa fa-pencil"></span></a>&nbsp;
+                            <a href="{{ path('snowtricks_deletetricks', {'slug': trick.slug}) }}"
+                               class="btn btn-danger"><span class="fa fa-trash-o"></span></a>
                         </div>
                     </div>
                 {% endif %}
@@ -37,7 +42,9 @@
                     {% for tricksPicture in trick.pictures %}
                         {% if loop.first %}
                         {% else %}
-                            <div class="col-xl-4 col-md-3 col-sm-4 col-6"><img src="{{ asset('uploads/pictures/' ~ tricksPicture.fileName) }}" class="img-tricks" alt=""></div>
+                            <div class="col-xl-4 col-md-3 col-sm-4 col-6"><img
+                                        src="{{ asset('uploads/pictures/' ~ tricksPicture.fileName) }}"
+                                        class="img-tricks" alt=""></div>
                         {% endif %}
                     {% endfor %}
                 </div>
@@ -46,7 +53,7 @@
                 <div class="row">
                     {% for tricksVideo in trick.videos %}
                         <div class="col-xl-4 col-md-3 col-sm-4 col-6">
-                            {{ tricksVideo.htmlVideoIFrame()|raw}}
+                            {{ tricksVideo.htmlVideoIFrame()|raw }}
                         </div>
                     {% endfor %}
                 </div>
@@ -60,18 +67,19 @@
         <hr>
         <h4>Espace commentaire</h4>
         {% if app.user %}
-        <div class="form-group">
-            {{ form_start(addCommentForm, {'attr': {'novalidate': 'novalidate'}}) }}
-            {{ form_widget(addCommentForm) }}
-            <button type="submit" class="btn btn-primary">Envoyer</button>
-            {{ form_end(addCommentForm) }}
-        </div>
+            <div class="form-group">
+                {{ form_start(addCommentForm, {'attr': {'novalidate': 'novalidate'}}) }}
+                {{ form_widget(addCommentForm) }}
+                <button type="submit" class="btn btn-primary">Envoyer</button>
+                {{ form_end(addCommentForm) }}
+            </div>
         {% endif %}
         {% for comment in pagination.comments %}
-            <p><img src="{{ asset('uploads/pictures/' ~ comment.user.picture.fileName) }}" height="50px" width="50px" class="rounded-circle" alt="">
+            <p><img src="{{ asset('uploads/pictures/' ~ comment.user.picture.fileName) }}" height="50px" width="50px"
+                    class="rounded-circle" alt="">
                 <b>{{ comment.user.username }}</b> le <em>{{ comment.createdAt|date("d/m/Y à H\\hi") }}</em>
             </p>
-                <p>{{ comment.content|capitalize }}</p>
+            <p>{{ comment.content|capitalize }}</p>
             <hr>
         {% endfor %}
     </div>
@@ -81,23 +89,33 @@
             <ul class="pagination" style="display: inline-flex">
                 {% if pagination.currentPage > 1 %}
                     <li class="page-item">
-                        <a class="page-link" href="{{ path('snowtricks_viewtricks', {'slug': trick.slug, 'page': 1}) }}"><<</a>
+                        <a class="page-link"
+                           href="{{ path('snowtricks_viewtricks', {'slug': trick.slug, 'page': 1}) }}"><<
+                        </a>
                     </li>
                     <li class="page-item">
-                        <a class="page-link" href="{{ path('snowtricks_viewtricks', {'slug': trick.slug ,'page': pagination.currentPage-1}) }}"><</a>
+                        <a class="page-link"
+                           href="{{ path('snowtricks_viewtricks', {'slug': trick.slug ,'page': pagination.currentPage-1}) }}"><
+                        </a>
                     </li>
                 {% endif %}
                 {% for p in range(max(pagination.currentPage-4, 1), min(pagination.currentPage+4, pagination.nbPages)) %}
                     <li {% if p == pagination.currentPage %} class="active page-item"{% endif %}>
-                        <a class="page-link" href="{{ path('snowtricks_viewtricks', {'slug': trick.slug, 'page': p}) }}">{{ p }}</a>
+                        <a class="page-link"
+                           href="{{ path('snowtricks_viewtricks', {'slug': trick.slug, 'page': p}) }}">{{ p }}
+                        </a>
                     </li>
                 {% endfor %}
                 {% if pagination.currentPage < pagination.nbPages %}
                     <li class="page-item">
-                        <a class="page-link" href="{{ path('snowtricks_viewtricks', {'slug': trick.slug, 'page': pagination.currentPage+1}) }}">></a>
+                        <a class="page-link"
+                           href="{{ path('snowtricks_viewtricks', {'slug': trick.slug, 'page': pagination.currentPage+1}) }}">>
+                        </a>
                     </li>
                     <li class="page-item">
-                        <a class="page-link" href="{{ path('snowtricks_viewtricks', {'slug': trick.slug, 'page': pagination.nbPages}) }}">>></a>
+                        <a class="page-link"
+                           href="{{ path('snowtricks_viewtricks', {'slug': trick.slug, 'page': pagination.nbPages}) }}">>>
+                        </a>
                     </li>
                 {% endif %}
             </ul>

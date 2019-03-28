@@ -27,19 +27,15 @@ class EncodePasswordListener implements EventSubscriber
     {
         $entity = $args->getEntity();
 
-        if(!$entity instanceof User)
-        {
+        if (!$entity instanceof User) {
             return;
         }
 
         $passwordEncoder = $this->encoderFactory->getEncoder(get_class($entity));
 
-        if($passwordEncoder instanceof BCryptPasswordEncoder)
-        {
+        if ($passwordEncoder instanceof BCryptPasswordEncoder) {
             $entity->setSalt(null);
-        }
-        else
-        {
+        } else {
             $salt = rtrim(str_replace('+', '.', base64_encode(random_bytes(32))), '=');
             $entity->setSalt($salt);
         }
@@ -51,8 +47,7 @@ class EncodePasswordListener implements EventSubscriber
     {
         $entity = $args->getEntity();
 
-        if(!$entity instanceof User)
-        {
+        if (!$entity instanceof User) {
             return;
         }
 
@@ -66,8 +61,7 @@ class EncodePasswordListener implements EventSubscriber
 
     public function encodepassword(User $entity, PasswordEncoderInterface $passwordEncoder)
     {
-        if(!$entity->getPlainPassword())
-        {
+        if (!$entity->getPlainPassword()) {
             return;
         }
 

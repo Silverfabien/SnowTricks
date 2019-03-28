@@ -9,7 +9,8 @@
             </ol>
             <div class="carousel-inner" role="listbox">
                 <!-- Slide One - Set the background image for this slide in the line below -->
-                <div class="carousel-item active" style="background-image: url('{{ asset('https://images.cdn.yle.fi/image/upload//w_1199,h_550,f_auto,fl_lossy,q_auto/13-3-7069960.jpg') }}') ">
+                <div class="carousel-item active"
+                     style="background-image: url('{{ asset('https://images.cdn.yle.fi/image/upload//w_1199,h_550,f_auto,fl_lossy,q_auto/13-3-7069960.jpg') }}') ">
                     <div class="carousel-caption d-none d-md-block">
                         <h3>Première Image</h3>
                         <p>Description de la première image</p>
@@ -45,40 +46,52 @@
 
     <div class="container contents">
         {% if app.user %}
-            <a class="btn btn-success" href="{{ path('snowtricks_addtricks') }}"><span class="fa fa-plus"> Ajouter un Tricks</span></a>
+            <a class="btn btn-success" href="{{ path('snowtricks_addtricks') }}">
+                <span class="fa fa-plus"> Ajouter un Tricks</span>
+            </a>
         {% endif %}
         <h2>Liste des Tricks</h2>
 
         <div class="row">
             {% for trick in pagination.tricks %}
-            <div class="col-lg-3 col-sm-6 portfolio-item">
-                <div class="card h-100">
-                    <a href="{{ path('snowtricks_viewtricks', {'slug': trick.slug}) }}">
-                        {% for trickPicture in trick.pictures %}
-                            {% if loop.first %}
-                                <img class="card-img-top" height="150px" title="{{ trick.name }}" src="{{ asset('uploads/pictures/' ~ trick.pictures.0.fileName) }}" alt="">
-                            {% endif %}
-                        {% else %}
-                            <img class="card-img-top" title="Aucune image" src="https://i.stack.imgur.com/8cenv.png" height="150px" alt="">
-                        {% endfor %}
-                        {% for trickvideo in trick.videos %}
-                        {% else %}
-                            <img src="{{ asset('pictures/aucune vidéo.png') }}" title="Aucune vidéo" alt="Pad de vidéo" height="20px" style="display: block; margin-top: -20px; margin-left: auto; margin-right: auto">
-                        {% endfor %}
-                    </a>
-                    <div class="card-body">
-                        <h4 class="card-title">
-                            <a href="{{ path('snowtricks_viewtricks', {'slug': trick.slug}) }}">{{ trick.name|truncate(35, false, '...') }}</a>
-                        </h4>
-                        <p class="card-text">{{ trick.description|truncate(100, true, '...') }}</p>
+                <div class="col-lg-3 col-sm-6 portfolio-item">
+                    <div class="card h-100">
+                        <a href="{{ path('snowtricks_viewtricks', {'slug': trick.slug}) }}">
+                            {% for trickPicture in trick.pictures %}
+                                {% if loop.first %}
+                                    <img class="card-img-top" height="150px" title="{{ trick.name }}"
+                                         src="{{ asset('uploads/pictures/' ~ trick.pictures.0.fileName) }}" alt="">
+                                {% endif %}
+                            {% else %}
+                                <img class="card-img-top" title="Aucune image" src="https://i.stack.imgur.com/8cenv.png"
+                                     height="150px" alt="">
+                            {% endfor %}
+                            {% for trickvideo in trick.videos %}
+                            {% else %}
+                                <img src="{{ asset('pictures/aucune vidéo.png') }}" title="Aucune vidéo"
+                                     alt="Pad de vidéo" height="20px"
+                                     style="display: block; margin-top: -20px; margin-left: auto; margin-right: auto">
+                            {% endfor %}
+                        </a>
+                        <div class="card-body">
+                            <h4 class="card-title">
+                                <a href="{{ path('snowtricks_viewtricks', {'slug': trick.slug}) }}">
+                                    {{ trick.name|truncate(35, false, '...') }}
+                                </a>
+                            </h4>
+                            <p class="card-text">{{ trick.description|truncate(100, true, '...') }}</p>
+                        </div>
+                        {% if app.user %}
+                            <a href="{{ path('snowtricks_edittricks', {'slug': trick.slug}) }}" class="btn btn-info">
+                                <span class="fa fa-pencil"> Éditer {{ trick.name|truncate(20, false, '...') }}</span>
+                            </a>
+                            <a href="{{ path('snowtricks_deletetricks', {'slug': trick.slug}) }}" class="btn btn-danger">
+                                <span class="fa fa-trash"> Supprimer {{ trick.name|truncate(20, false, '...') }}</span>
+                            </a>
+                        {% endif %}
                     </div>
-                    {% if app.user %}
-                        <a href="{{ path('snowtricks_edittricks', {'slug': trick.slug}) }}" class="btn btn-info"><span class="fa fa-pencil"> Éditer {{ trick.name|truncate(20, false, '...') }}</span></a>
-                        <a href="{{ path('snowtricks_deletetricks', {'slug': trick.slug}) }}" class="btn btn-danger"><span class="fa fa-trash"> Supprimer {{ trick.name|truncate(20, false, '...') }}</span></a>
-                    {% endif %}
                 </div>
-            </div>
-            {% endfor%}
+            {% endfor %}
         </div>
     </div>
     {% if pagination.nbPages > 0 %}
@@ -89,7 +102,8 @@
                         <a class="page-link" href="{{ path('snowtricks_homepage', {'page': 1}) }}"><<</a>
                     </li>
                     <li class="page-item">
-                        <a class="page-link" href="{{ path('snowtricks_homepage', {'page': pagination.currentPage-1}) }}"><</a>
+                        <a class="page-link"
+                           href="{{ path('snowtricks_homepage', {'page': pagination.currentPage-1}) }}"><</a>
                     </li>
                 {% endif %}
                 {% for p in range(max(pagination.currentPage-4, 1), min(pagination.currentPage+4, pagination.nbPages)) %}
@@ -99,10 +113,12 @@
                 {% endfor %}
                 {% if pagination.currentPage < pagination.nbPages %}
                     <li class="page-item">
-                        <a class="page-link" href="{{ path('snowtricks_homepage', {'page': pagination.currentPage+1}) }}">></a>
+                        <a class="page-link"
+                           href="{{ path('snowtricks_homepage', {'page': pagination.currentPage+1}) }}">></a>
                     </li>
                     <li class="page-item">
-                        <a class="page-link" href="{{ path('snowtricks_homepage', {'page': pagination.nbPages}) }}">>></a>
+                        <a class="page-link"
+                           href="{{ path('snowtricks_homepage', {'page': pagination.nbPages}) }}">>></a>
                     </li>
                 {% endif %}
             </ul>

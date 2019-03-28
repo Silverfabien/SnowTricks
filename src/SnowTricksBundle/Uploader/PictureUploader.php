@@ -8,12 +8,11 @@ class PictureUploader implements Uploader
 {
     public function upload($picture)
     {
-        if(!$picture->getFile() instanceof UploadedFile)
-        {
+        if (!$picture->getFile() instanceof UploadedFile) {
             return null;
         }
 
-        $fileName = sha1(uniqid()).'.'.$picture->getFile()->guessExtension();
+        $fileName = sha1(uniqid()) . '.' . $picture->getFile()->guessExtension();
         $picture->getFile()->move($this->getTargetDirectory(), $fileName);
 
         return $fileName;
@@ -21,7 +20,7 @@ class PictureUploader implements Uploader
 
     public function remove($picture)
     {
-        unlink($this->getTargetDirectory().$picture->getFileName());
+        unlink($this->getTargetDirectory() . $picture->getFileName());
     }
 
     public function getTargetDirectory()

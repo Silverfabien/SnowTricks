@@ -19,15 +19,13 @@ class PictureListener
     {
         $entity = $args->getEntity();
 
-        if(!$entity instanceof TricksPicture)
-        {
+        if (!$entity instanceof TricksPicture) {
             return;
         }
 
         $fileName = $this->pictureUploader->upload($entity);
 
-        if($fileName === null)
-        {
+        if ($fileName === null) {
             return;
         }
 
@@ -38,8 +36,7 @@ class PictureListener
     {
         $entity = $args->getEntity();
 
-        if(!$entity instanceof TricksPicture)
-        {
+        if (!$entity instanceof TricksPicture) {
             return;
         }
 

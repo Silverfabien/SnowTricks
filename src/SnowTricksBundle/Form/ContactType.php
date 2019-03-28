@@ -16,9 +16,12 @@ class ContactType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('nom', TextType::class, ['label' => 'Votre nom', 'constraints' => [new NotBlank(['message' => 'Veuillez renseigné le champs "Nom"'])]])
-            ->add('sujet', TextType::class, ['label' => 'Sujet de votre demande', 'constraints' => [new NotBlank(['message' => 'Veuillez remplir le champ "Sujet"'])]])
-            ->add('email', EmailType::class, ['label' => 'Votre email', 'constraints' => [new NotBlank(['message' => 'Veuillez remplir le champ "Email"']),
+            ->add('nom', TextType::class, ['label' => 'Votre nom',
+                    'constraints' => [new NotBlank(['message' => 'Veuillez renseigné le champs "Nom"'])]])
+            ->add('sujet', TextType::class, ['label' => 'Sujet de votre demande',
+                'constraints' => [new NotBlank(['message' => 'Veuillez remplir le champ "Sujet"'])]])
+            ->add('email', EmailType::class, ['label' => 'Votre email',
+                'constraints' => [new NotBlank(['message' => 'Veuillez remplir le champ "Email"']),
                 new Email(['message' => 'Votre email {{ value }} n\'est pas un email valide'])]])
             ->add('contenu', TextareaType::class, ['label' => 'Contenu de votre demande',
                 'constraints' => [new NotBlank(['message' => 'Veuillez remplir le champ "Contenu"'])]]);

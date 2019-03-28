@@ -9,8 +9,10 @@
                 {{ form_widget(editTricksForm) }}
                 <h5>Image actuellement présentent</h5>
                 {% for trickPictures in tricks.pictures %}
-                    <div class="imgEditTricks"><input type="hidden" name="picture_to_keep[]" value="{{ trickPictures.id }}">
-                        <img width="200px" height="120ox" class="imgEditTricks" src="{{ asset('uploads/pictures/' ~ trickPictures.fileName) }}" alt="">
+                    <div class="imgEditTricks"><input type="hidden" name="picture_to_keep[]"
+                                                      value="{{ trickPictures.id }}">
+                        <img width="200px" height="120ox" class="imgEditTricks"
+                             src="{{ asset('uploads/pictures/' ~ trickPictures.fileName) }}" alt="">
                     </div>
                 {% endfor %}
                 <button type="submit" class="btn btn-primary"><span class="fa fa-pencil"> Éditer</span></button>
@@ -22,7 +24,7 @@
 {% endblock %}
 
 {% block javascripts %}
-    
+
     {{ parent() }}
     <script>
 
@@ -37,7 +39,7 @@
         });
 
         function initMultiForm($collectionHolder, labelLink) {
-            var $addFormLink = $('<a href="#" class="add_tag_link">'+labelLink+'</a>');
+            var $addFormLink = $('<a href="#" class="add_tag_link">' + labelLink + '</a>');
             var $newLinkLi = $('<div></div>').append($addFormLink);
 
             $collectionHolder.append($newLinkLi);
@@ -66,7 +68,7 @@
             var $removeFormA = $('<a href="#">Supprimer ce contenu</a>');
 
             $tagFormLi.append($removeFormA);
-            $removeFormA.on('click', function(e) {
+            $removeFormA.on('click', function (e) {
                 e.preventDefault();
                 $tagFormLi.remove();
             });

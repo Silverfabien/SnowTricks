@@ -44,7 +44,8 @@ class LoginFormAuthenticator extends AbstractGuardAuthenticator
      */
     private $router;
 
-    public function __construct(EntityManager $entityManager, FormFactoryInterface $formFactory, UserPasswordEncoder $encoder, RouterInterface $router)
+    public function __construct(EntityManager $entityManager, FormFactoryInterface $formFactory,
+        UserPasswordEncoder $encoder, RouterInterface $router)
     {
         $this->entityManager = $entityManager;
         $this->formFactory = $formFactory;
@@ -69,8 +70,7 @@ class LoginFormAuthenticator extends AbstractGuardAuthenticator
         $loginForm = $this->formFactory->create(LoginType::class);
         $loginForm->handleRequest($request);
 
-        if($loginForm->isSubmitted() && $loginForm->isValid())
-        {
+        if ($loginForm->isSubmitted() && $loginForm->isValid()) {
             $data = $loginForm->getData();
             $request->getSession()->set(Security::LAST_USERNAME, $data['username']);
 
@@ -99,8 +99,7 @@ class LoginFormAuthenticator extends AbstractGuardAuthenticator
      */
     public function checkCredentials($credentials, UserInterface $user)
     {
-        if(!$this->encoder->isPasswordValid($user, $credentials['password']))
-        {
+        if (!$this->encoder->isPasswordValid($user, $credentials['password'])) {
             throw new CustomUserMessageAuthenticationException('Mauvais mot de passe');
         }
 
@@ -112,8 +111,7 @@ class LoginFormAuthenticator extends AbstractGuardAuthenticator
      */
     public function onAuthenticationFailure(Request $request, AuthenticationException $exception)
     {
-        if($request->getSession() instanceof SessionInterface)
-        {
+        if ($request->getSession() instanceof SessionInterface) {
             $request->getSession()->getFlashBag()->add('danger', $exception->getMessage());
         }
 
@@ -125,13 +123,11 @@ class LoginFormAuthenticator extends AbstractGuardAuthenticator
      */
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey)
     {
-        if($request->getSession() instanceof SessionInterface)
-        {
+        if ($request->getSession() instanceof SessionInterface) {
             $targetPath = $this->getTargetPath($request->getSession(), $providerKey);
         }
 
-        if($targetPath === null)
-        {
+        if ($targetPath === null) {
             $targetPath = $this->router->generate('snowtricks_homepage');
         }
 

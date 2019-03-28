@@ -18,7 +18,7 @@ class ForgotPasswordType extends AbstractType
     {
         $builder->add('email', EmailType::class, ['label' => 'Votre Email :',
             'constraints' => [new Email(['message' => "Votre email {{ value }} n'est pas un email valide"]),
-                              new NotBlank(['message' => "Veuillez complété le champ Email"])]]);
+                new NotBlank(['message' => "Veuillez complété le champ Email"])]]);
     }
 
     /**
@@ -26,8 +26,7 @@ class ForgotPasswordType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
-        ));
+        $resolver->setDefaults(array());
     }
 
     /**

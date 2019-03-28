@@ -22,9 +22,9 @@ class TricksFixtures extends Fixture
             ],
             [
                 'Slide',
-                'Un slide consiste à glisser sur une barre de slide. Le slide se fait soit avec la planche dans l\'axe de la barre,
-                 soit perpendiculaire, soit plus ou moins désaxé. On peut slider avec la planche centrée par rapport à la barre
-                 (celle-ci se situe approximativement au-dessous des pieds du rideur)',
+                'Un slide consiste à glisser sur une barre de slide. Le slide se fait soit avec la planche dans l\'axe
+                 de la barre,soit perpendiculaire, soit plus ou moins désaxé. On peut slider avec la planche centrée par
+                 rapport à la barre (celle-ci se situe approximativement au-dessous des pieds du rideur)',
                 'Slide',
                 '2019-01-29 18:29:14',
                 'slide'
@@ -92,8 +92,7 @@ class TricksFixtures extends Fixture
 
         $i = 0;
 
-        foreach($tricksData as list($name, $description, $figureGroup, $created, $slug))
-        {
+        foreach ($tricksData as list($name, $description, $figureGroup, $created, $slug)) {
             $tricks = new Tricks();
             $tricks->setName($name);
             $tricks->setDescription($description);
@@ -104,7 +103,7 @@ class TricksFixtures extends Fixture
             $manager->persist($tricks);
             $manager->flush();
 
-            $this->addReference(self::TRICKS_REFERENCE.$i, $tricks);
+            $this->addReference(self::TRICKS_REFERENCE . $i, $tricks);
             $i++;
         }
     }

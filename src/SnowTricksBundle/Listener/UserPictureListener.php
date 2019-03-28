@@ -19,15 +19,13 @@ class UserPictureListener
     {
         $entity = $args->getEntity();
 
-        if(!$entity instanceof UserPicture)
-        {
+        if (!$entity instanceof UserPicture) {
             return;
         }
 
         $fileName = $this->pictureUploader->upload($entity);
 
-        if($fileName === null)
-        {
+        if ($fileName === null) {
             return;
         }
 
@@ -38,8 +36,7 @@ class UserPictureListener
     {
         $entity = $args->getEntity();
 
-        if(!$entity instanceof UserPicture)
-        {
+        if (!$entity instanceof UserPicture) {
             return;
         }
 

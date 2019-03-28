@@ -26,8 +26,8 @@ class TricksController extends Controller
         $totalPosts = $tricks->count();
 
         return $this->render('@SnowTricks/Default/index.html.twig', ['pagination' => [
-            'nbPages' => (int) ceil($totalPosts / $maxPerPage),
-            'currentPage' => (int) $page,
+            'nbPages' => (int)ceil($totalPosts / $maxPerPage),
+            'currentPage' => (int)$page,
             'tricks' => $tricks
         ]]);
     }
@@ -43,8 +43,7 @@ class TricksController extends Controller
 
         $tricks = $this->getDoctrine()->getRepository(Tricks::class)->findOneBy(['slug' => $slug]);
 
-        if($form->isSubmitted() && $form->isValid())
-        {
+        if ($form->isSubmitted() && $form->isValid()) {
             $comment->setTrick($tricks);
             $comment->setUser($user);
 
@@ -60,7 +59,8 @@ class TricksController extends Controller
         $comments = $em->getRepository('SnowTricksBundle:Comment')->getAllComments($tricks, $page, $maxPerPage);
         $totalComments = $comments->count();
 
-        return $this->render('@SnowTricks/tricks/view.html.twig', ['trick' => $tricks, 'addCommentForm' => $form->createView(), 'pagination' => [
+        return $this->render('@SnowTricks/tricks/view.html.twig',
+            ['trick' => $tricks, 'addCommentForm' => $form->createView(), 'pagination' => [
             'nbPages' => (int)ceil($totalComments / $maxPerPage),
             'currentPage' => (int)$page,
             'comments' => $comments
@@ -80,8 +80,7 @@ class TricksController extends Controller
         $form = $this->createForm(TricksType::class, $tricks);
         $form->handleRequest($request);
 
-        if($form->isSubmitted() && $form->isValid())
-        {
+        if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($tricks);
             $em->flush();
@@ -102,16 +101,13 @@ class TricksController extends Controller
         $form = $this->createForm(TricksType::class, $tricks);
         $form->handleRequest($request);
 
-        if($form->isSubmitted() && $form->isValid())
-        {
+        if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
 
             $toKeep = $request->request->get('picture_to_keep', []);
 
-            foreach($tricks->getPictures() as $picture)
-            {
-                if(!in_array($picture->getId(), array_merge($toKeep, [null])))
-                {
+            foreach ($tricks->getPictures() as $picture) {
+                if (!in_array($picture->getId(), array_merge($toKeep, [null]))) {
                     $tricks->removePicture($picture);
                     $em->remove($picture);
                 }
@@ -135,8 +131,7 @@ class TricksController extends Controller
         $form = $this->createDeleteForm($tricks);
         $form->handleRequest($request);
 
-        if($form->isSubmitted() && $form->isValid())
-        {
+        if ($form->isSubmitted() && $form->isValid()) {
             $deleteForm = $this->getDoctrine()->getManager();
             $deleteForm->remove($tricks);
             $deleteForm->flush();
