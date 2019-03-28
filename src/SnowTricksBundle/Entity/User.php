@@ -70,6 +70,16 @@ class User implements UserInterface, \Serializable
      */
     private $created;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $resetToken;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $resetTokenCreatedAt;
+
     public function __construct()
     {
         $this->created = new \DateTime();
@@ -230,7 +240,7 @@ class User implements UserInterface, \Serializable
     /**
      * @param \DateTime $created
      */
-    public function setCreatedAt($created)
+    public function setCreated($created)
     {
         $this->created = $created;
     }
@@ -255,12 +265,6 @@ class User implements UserInterface, \Serializable
         $this->plainPassword = null;
     }
 
-    /**
-     * String representation of object
-     * @link https://php.net/manual/en/serializable.serialize.php
-     * @return string the string representation of the object or null
-     * @since 5.1.0
-     */
     public function serialize()
     {
         return serialize([
@@ -268,17 +272,40 @@ class User implements UserInterface, \Serializable
         ]);
     }
 
-    /**
-     * Constructs the object
-     * @link https://php.net/manual/en/serializable.unserialize.php
-     * @param string $serialized <p>
-     * The string representation of the object.
-     * </p>
-     * @return void
-     * @since 5.1.0
-     */
     public function unserialize($serialized)
     {
         list($this->id, $this->username, $this->email, $this->password) = unserialize($serialized);
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getResetToken()
+    {
+        return $this->resetToken;
+    }
+
+    /**
+     * @param mixed $resetToken
+     */
+    public function setResetToken($resetToken)
+    {
+        $this->resetToken = $resetToken;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getResetTokenCreatedAt()
+    {
+        return $this->resetTokenCreatedAt;
+    }
+
+    /**
+     * @param mixed $resetTokenCreatedAt
+     */
+    public function setResetTokenCreatedAt($resetTokenCreatedAt)
+    {
+        $this->resetTokenCreatedAt = $resetTokenCreatedAt;
     }
 }
