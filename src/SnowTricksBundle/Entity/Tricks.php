@@ -215,16 +215,14 @@ class Tricks
         $name = preg_replace('#[^\\pL\d]+#u', '-', $name);
         $name = trim($name, '-');
 
-        if(function_exists('iconv'))
-        {
+        if (function_exists('iconv')) {
             $name = iconv('utf-8', 'us-ascii//TRANSLIT', $name);
         }
 
         $name = strtolower($name);
         $name = preg_replace('#[^-\w]+#', '', $name);
 
-        if(empty($name))
-        {
+        if (empty($name)) {
             return 'n-a';
         }
 

@@ -17,14 +17,13 @@ class ContactController extends Controller
         $form = $this->createForm(ContactType::class);
         $form->handleRequest($request);
 
-        if($form->isSubmitted() && $form->isValid())
-        {
+        if ($form->isSubmitted() && $form->isValid()) {
             $contactMail = $this->getParameter('contact_email');
             $data = $form->getData();
-            $message = \Swift_Message::newInstance("le sujet du contact est ". $data["sujet"])
+            $message = \Swift_Message::newInstance("le sujet du contact est " . $data["sujet"])
                 ->setFrom($this->getParameter('mailer_user'))
                 ->setTo(array($contactMail))
-                ->setBody($data["contenu"]. "\r\n\r\nEmail :" .$data["email"]);
+                ->setBody($data["contenu"] . "\r\n\r\nEmail :" . $data["email"]);
             $this->get('mailer')->send($message);
             return $this->redirectToRoute('snowtricks_contact');
         }

@@ -19,7 +19,9 @@
             <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark fixed-top">
                 <div class="container">
                     <a class="navbar-brand" href="{{ path('snowtricks_homepage') }}">SnowTricks</a>
-                    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
+                            data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
+                            aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
                     <div class="collapse navbar-collapse" id="navbarResponsive">
@@ -31,12 +33,17 @@
                                 <a class="nav-link" href="{{ path('snowtricks_contact') }}">Contact</a>
                             </li>
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownPortfolio" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    {% if app.user %}<img src="{{ asset('uploads/pictures/' ~ app.user.picture.fileName) }}" class="rounded-circle" width="30px" height="30px" alt=""> {{ app.user.username }}{% else %}Pas connecté{% endif %}
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownPortfolio"
+                                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    {% if app.user %}<img src="{{ asset('uploads/pictures/' ~ app.user.picture.fileName) }}"
+                                                          class="rounded-circle" width="30px" height="30px" alt="">
+                                        {{ app.user.username }}{% else %}Pas connecté{% endif %}
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownPortfolio">
                                     {% if app.user %}
-                                    <a class="dropdown-item" href="{{ path('snowtricks_account', {'username': app.user.username}) }}">Mon compte</a>
+                                    <a class="dropdown-item" href="{{ path('snowtricks_account', {'username': app.user.username}) }}">
+                                        Mon compte
+                                    </a>
                                     <a class="dropdown-item" href="{{ path('snowtricks_logout') }}">Déconnexion</a>
                                     {% else %}
                                     <a class="dropdown-item" href="{{ path('snowtricks_login') }}">Connexion</a>
